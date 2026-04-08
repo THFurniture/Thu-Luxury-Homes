@@ -207,14 +207,18 @@ export function useHomeAnimations(
           });
 
         if (document.querySelector(".portfolio-track")) {
-          gsap.to(".portfolio-track", {
-            yPercent: -10,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".portfolio-shell",
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.5,
+          ScrollTrigger.matchMedia({
+            "(min-width: 901px)": () => {
+              gsap.to(".portfolio-track", {
+                yPercent: -10,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: ".portfolio-shell",
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 1.5,
+                },
+              });
             },
           });
         }

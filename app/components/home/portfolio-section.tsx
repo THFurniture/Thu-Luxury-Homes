@@ -20,7 +20,7 @@ export function PortfolioSection() {
   return (
     <section
       id="portfolio"
-      className={`section portfolio-section ${portfolioSurface} px-5 pt-32 pb-24 max-[560px]:px-4 max-[560px]:pb-20`}
+      className={`section portfolio-section portfolio-shell ${portfolioSurface} px-5 pt-32 pb-24 max-[560px]:px-4 max-[560px]:pb-20`}
       data-section
     >
       <div className={`relative left-1/2 w-screen -translate-x-1/2 ${portfolioSurface}`}>
@@ -33,7 +33,7 @@ export function PortfolioSection() {
         </div>
       </div>
 
-      <div>
+      <div className="relative z-10 mt-12 max-[560px]:mt-8">
         <ImageReveal items={revealItems} />
       </div>
     </section>

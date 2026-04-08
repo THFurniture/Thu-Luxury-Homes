@@ -28,7 +28,7 @@ export function HeroSection() {
           </p>
 
           <h1
-            className={`hero-title ${serifDisplay} max-w-[58rem] text-[clamp(3.2rem,6.6vw,6.2rem)] leading-[0.92] text-white max-[820px]:max-w-[42rem] max-[560px]:max-w-[20rem] max-[560px]:text-[clamp(2.75rem,12vw,4.1rem)]`}
+            className={`hero-title ${serifDisplay} max-w-[58rem] text-[clamp(3.2rem,6.6vw,6.2rem)] leading-[0.92] text-white max-[820px]:max-w-[42rem] max-[560px]:max-w-[28rem] max-[560px]:text-[clamp(2.2rem,9vw,3.5rem)]`}
             style={{ opacity: 0 }}
           >
             <RevealLine allowDescenders>We turn spaces into</RevealLine>

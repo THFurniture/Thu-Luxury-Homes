@@ -1,18 +1,8 @@
 import gsap from "gsap";
 
-type ScrollTriggerType = {
-  update: () => void;
-  refresh: () => void;
-};
-
-type CustomEaseType = {
-  create: (id: string, data: string) => unknown;
-};
-
-type FlipType = {
-  getState: (target: unknown) => unknown;
-  from: (state: unknown, vars: Record<string, unknown>) => unknown;
-};
+type ScrollTriggerType = any;
+type CustomEaseType = any;
+type FlipType = any;
 
 let scrollTriggerPromise: Promise<ScrollTriggerType> | undefined;
 let preloaderPluginsPromise:
@@ -27,17 +17,18 @@ export function loadScrollTrigger() {
     },
   );
 
-  return scrollTriggerPromise;
+  return scrollTriggerPromise!;
 }
 
 export function loadPreloaderPlugins() {
   preloaderPluginsPromise ??= Promise.all([
     import("gsap/CustomEase.js"),
+    // @ts-ignore GSAP ships inconsistent Flip type casing; runtime import is valid.
     import("gsap/Flip.js"),
   ]).then(([{ CustomEase }, { Flip }]) => {
     gsap.registerPlugin(CustomEase, Flip);
     return { CustomEase, Flip };
   });
 
-  return preloaderPluginsPromise;
+  return preloaderPluginsPromise!;
 }

@@ -29,6 +29,14 @@ export default function ImageReveal({ items }: ImageRevealProps) {
   const backgroundRef = useRef<HTMLDivElement>(null);
   const detailRef = useRef<HTMLDivElement>(null);
   const activeImageRef = useRef<HTMLImageElement>(null);
+  const mobileActiveImageRef = useRef<HTMLImageElement>(null);
+  const previousMobileStateRef = useRef<{
+    activeIndex: number | null;
+    activeImage: string | null;
+  }>({
+    activeIndex: null,
+    activeImage: null,
+  });
 
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -66,6 +74,48 @@ export default function ImageReveal({ items }: ImageRevealProps) {
           autoAlpha: 1,
           duration: 0.65,
           ease: "power3.out",
+          scale: 1,
+          xPercent: 0,
+        },
+      );
+    },
+    {
+      scope: containerRef,
+      dependencies: [activeImageIndex, activeIndex, imageDirection],
+      revertOnUpdate: true,
+    },
+  );
+
+  useGSAP(
+    () => {
+      if (!activeIndex && activeIndex !== 0) return;
+      if (!mobileActiveImageRef.current) return;
+      if (!activeImage) return;
+
+      const previousState = previousMobileStateRef.current;
+      const shouldAnimate =
+        previousState.activeIndex === activeIndex &&
+        previousState.activeImage !== null &&
+        previousState.activeImage !== activeImage;
+
+      previousMobileStateRef.current = {
+        activeIndex,
+        activeImage,
+      };
+
+      if (!shouldAnimate) return;
+
+      gsap.fromTo(
+        mobileActiveImageRef.current,
+        {
+          autoAlpha: 0,
+          scale: 1.02,
+          xPercent: imageDirection === 1 ? 2 : -2,
+        },
+        {
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "power2.out",
           scale: 1,
           xPercent: 0,
         },
@@ -182,6 +232,14 @@ export default function ImageReveal({ items }: ImageRevealProps) {
     setActiveImageIndex((current) =>
       current === activeItem.images.length - 1 ? 0 : current + 1,
     );
+  });
+
+  const handleMobileItemToggle = contextSafe((index: number) => {
+    const initialImageIndex = items[index].images.indexOf(items[index].image);
+
+    setImageDirection(1);
+    setActiveImageIndex(initialImageIndex >= 0 ? initialImageIndex : 0);
+    setActiveIndex((current) => (current === index ? null : index));
   });
 
   return (
@@ -332,37 +390,95 @@ export default function ImageReveal({ items }: ImageRevealProps) {
         </div>
       </div>
 
-      <div className="grid gap-5 px-5 min-[901px]:hidden max-[560px]:px-4">
-        {items.map((item) => (
-          <article
-            key={item.title}
-            className="overflow-hidden rounded-[1.7rem] border border-[rgba(109,71,39,0.14)] bg-[#efe3d5] shadow-[0_22px_60px_rgba(82,55,32,0.1)]"
-          >
-            <div className="relative h-[20rem] overflow-hidden">
-              <img
-                className="h-full w-full object-cover"
-                src={item.image}
-                alt={item.title}
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,13,9,0.04)_0%,rgba(20,13,9,0.24)_100%)]" />
-            </div>
+      <div className="relative z-10 grid gap-5 px-5 min-[901px]:hidden max-[560px]:gap-4 max-[560px]:px-4">
+        {items.map((item, index) => {
+          const isActive = activeIndex === index;
+          const mobileImage = isActive
+            ? activeItem?.images[activeImageIndex] ?? item.image
+            : item.image;
 
-            <div className="space-y-3 p-5">
-              <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(105,91,76,0.78)]">
-                {item.number}
-              </span>
-              <h3 className='font-["Cormorant_Garamond",Georgia,serif] text-[2.1rem] leading-[0.95] text-[#1f1712]'>
-                {item.title}
-              </h3>
-              <p className="text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(109,71,39,1)]">
-                {item.type}
-              </p>
-              <p className="text-[0.98rem] leading-[1.65] text-[rgba(105,91,76,0.92)]">
-                {item.location}
-              </p>
-            </div>
-          </article>
-        ))}
+          return (
+            <article
+              key={item.title}
+              className="overflow-hidden rounded-[1.7rem] border border-[rgba(109,71,39,0.14)] bg-[#efe3d5] shadow-[0_22px_60px_rgba(82,55,32,0.1)]"
+            >
+              <button
+                type="button"
+                onClick={() => handleMobileItemToggle(index)}
+                className="block w-full cursor-pointer text-left"
+                aria-expanded={isActive}
+                aria-controls={`mobile-project-${index}`}
+              >
+                <div className="relative h-[20rem] overflow-hidden max-[560px]:h-[16.5rem]">
+                  <img
+                    ref={isActive ? mobileActiveImageRef : null}
+                    key={mobileImage}
+                    className="h-full w-full object-cover"
+                    src={mobileImage}
+                    alt={item.title}
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,13,9,0.04)_0%,rgba(20,13,9,0.24)_100%)]" />
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 max-[560px]:p-4">
+                    <div>
+                      <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,244,235,0.78)]">
+                        {item.number}
+                      </span>
+                      <h3 className='mt-2 font-["Cormorant_Garamond",Georgia,serif] text-[2.1rem] leading-[0.95] text-[#fff8f1] max-[560px]:text-[1.8rem]'>
+                        {item.title}
+                      </h3>
+                    </div>
+                    <span className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[rgba(255,248,241,0.3)] bg-[rgba(28,18,11,0.28)] px-3 text-[1rem] text-white backdrop-blur-[10px]">
+                      {isActive ? "−" : "+"}
+                    </span>
+                  </div>
+                </div>
+              </button>
+
+              <div
+                id={`mobile-project-${index}`}
+                className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${isActive ? "max-h-[36rem] opacity-100" : "max-h-0 opacity-0"}`}
+              >
+                <div className="space-y-5 border-t border-[rgba(109,71,39,0.12)] p-5 max-[560px]:space-y-4 max-[560px]:p-4">
+                  <p className="text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(109,71,39,1)]">
+                    {item.type}
+                  </p>
+                  <p className="text-[0.98rem] leading-[1.65] text-[rgba(105,91,76,0.92)]">
+                    {item.location}
+                  </p>
+                  <p className="text-[0.98rem] leading-[1.75] text-[rgba(105,91,76,0.92)]">
+                    Every staging plan is composed to sharpen first impressions,
+                    guide buyer attention, and make the property feel resolved
+                    the moment they step inside.
+                  </p>
+
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-[rgba(105,91,76,0.78)]">
+                      {String(activeImageIndex + 1).padStart(2, "0")} / {String(item.images.length).padStart(2, "0")}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={handlePrevImage}
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(109,71,39,0.18)] bg-[rgba(255,248,241,0.6)] text-[1.15rem] text-[#1f1712]"
+                        aria-label="Previous project image"
+                      >
+                        &larr;
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleNextImage}
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(109,71,39,0.18)] bg-[rgba(255,248,241,0.6)] text-[1.15rem] text-[#1f1712]"
+                        aria-label="Next project image"
+                      >
+                        &rarr;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   );
