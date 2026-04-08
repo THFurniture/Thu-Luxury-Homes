@@ -11,6 +11,8 @@ export function HeroSection() {
             data-parallax="soft"
             src={heroImages[2].src}
             alt={heroImages[2].alt}
+            loading="eager"
+            fetchPriority="high"
           />
         </figure>
 

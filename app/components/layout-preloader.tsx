@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { loadPreloaderPlugins } from "../lib/gsap-client";
 
@@ -8,6 +8,7 @@ gsap.registerPlugin(useGSAP);
 
 type LayoutPreloaderProps = {
   images: Array<{ src: string; alt: string }>;
+  assets?: string[];
   onComplete?: () => void;
 };
 
@@ -19,12 +20,55 @@ const panelTransforms = [
 
 export default function LayoutPreloader({
   images,
+  assets = [],
   onComplete,
 }: LayoutPreloaderProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [isHidden, setIsHidden] = useState(false);
+  const [areAssetsLoaded, setAreAssetsLoaded] = useState(false);
   const stagedImages =
     images.length > 1 ? [...images.slice(1), images[0]] : images;
+  const assetSources = Array.from(
+    new Set([
+      ...stagedImages.map((image) => image.src),
+      ...assets,
+      "/theonehomestaging_logo.png",
+    ]),
+  );
+  const assetSourceKey = assetSources.join("|");
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    if (typeof window === "undefined" || assetSources.length === 0) {
+      setAreAssetsLoaded(true);
+      return;
+    }
+
+    const preloadAsset = (src: string) =>
+      new Promise<void>((resolve) => {
+        const image = new window.Image();
+        const finalize = () => resolve();
+
+        image.onload = finalize;
+        image.onerror = finalize;
+        image.src = src;
+
+        if (image.complete) {
+          resolve();
+        }
+      });
+
+    void Promise.all(assetSources.map(preloadAsset)).then(() => {
+      if (!isCancelled) {
+        setAreAssetsLoaded(true);
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [assetSourceKey]);
 
   useGSAP(
     (_, contextSafe) => {
@@ -33,6 +77,8 @@ export default function LayoutPreloader({
         contextSafe ?? ((fn: () => void | Promise<void>) => fn);
 
       const initPreloader = withContext(async () => {
+        if (!areAssetsLoaded) return;
+
         if (!rootRef.current || stagedImages.length === 0) {
           setIsHidden(true);
           onComplete?.();
@@ -274,7 +320,7 @@ export default function LayoutPreloader({
         isCancelled = true;
       };
     },
-    { scope: rootRef },
+    { dependencies: [areAssetsLoaded, stagedImages.length], scope: rootRef },
   );
 
   if (isHidden) return null;
@@ -285,6 +331,14 @@ export default function LayoutPreloader({
       className="preloader-shell fixed inset-0 z-[100] overflow-hidden bg-[linear-gradient(180deg,#f6f0e8_0%,#ead8c4_100%)]"
       aria-hidden="true"
     >
+      <div
+        className={`pointer-events-none absolute inset-0 z-[20] flex items-center justify-center transition-opacity duration-300 ${
+          areAssetsLoaded ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <div className="h-12 w-12 animate-spin rounded-full border-[3px] border-[rgba(105,91,76,0.18)] border-t-[rgba(105,91,76,0.92)]" />
+      </div>
+
       <div className="preloader-grid pointer-events-none absolute inset-0">
         <div className="grid-overlay-inner grid h-full grid-cols-12 gap-3 px-5 max-[560px]:gap-2 max-[560px]:px-4">
           {Array.from({ length: 12 }, (_, index) => (
@@ -301,7 +355,11 @@ export default function LayoutPreloader({
           The One
         </div>
 
-        <div className="preloader-container relative h-[18.75rem] w-[25rem] max-w-[82vw] max-[640px]:h-[15rem] max-[640px]:w-[18rem]">
+        <div
+          className={`preloader-container relative h-[18.75rem] w-[25rem] max-w-[82vw] transition-opacity duration-300 max-[640px]:h-[15rem] max-[640px]:w-[18rem] ${
+            areAssetsLoaded ? "opacity-100" : "opacity-0"
+          }`}
+        >
           {stagedImages.map((image, index) => (
             <figure
               key={`${image.src}-${index}`}
@@ -314,6 +372,7 @@ export default function LayoutPreloader({
                 className="h-full w-full object-cover"
                 src={image.src}
                 alt={image.alt}
+                loading="eager"
               />
             </figure>
           ))}
@@ -323,7 +382,11 @@ export default function LayoutPreloader({
           Home Staging
         </div>
 
-        <div className="preloader-copy pointer-events-none absolute left-1/2 top-1/2 z-[15] w-[34rem] max-w-[82vw] rounded-[1.6rem] border border-white/45 bg-[rgba(250,243,235,0.18)] p-5 backdrop-blur-[14px]">
+        <div
+          className={`preloader-copy pointer-events-none absolute left-1/2 top-1/2 z-[15] w-[34rem] max-w-[82vw] rounded-[1.6rem] border border-white/45 bg-[rgba(250,243,235,0.18)] p-5 backdrop-blur-[14px] transition-opacity duration-300 ${
+            areAssetsLoaded ? "opacity-100" : "opacity-0"
+          }`}
+        >
           <div className="preloader-wordmark">
             <span className="line-mask block overflow-hidden">
               <span className="line-inner block">
@@ -331,6 +394,7 @@ export default function LayoutPreloader({
                   src="/theonehomestaging_logo.png"
                   alt="The One Home Staging"
                   className="h-auto w-full p-12"
+                  loading="eager"
                   draggable={false}
                 />
               </span>

@@ -2,7 +2,7 @@ import { startTransition, useRef, useState } from "react";
 
 import { AboutSection } from "../components/home/about-section";
 import { ContactSection } from "../components/home/contact-section";
-import { preloaderImages } from "../components/home/content";
+import { heroImages, preloaderImages } from "../components/home/content";
 import { HeroSection } from "../components/home/hero-section";
 import LayoutPreloader from "../components/layout-preloader";
 import { PortfolioSection } from "../components/home/portfolio-section";
@@ -31,6 +31,7 @@ export default function Home() {
   return (
     <>
       <LayoutPreloader
+        assets={[heroImages[2].src]}
         images={preloaderImages}
         onComplete={() => {
           startTransition(() => setIsSiteReady(true));
