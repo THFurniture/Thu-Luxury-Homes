@@ -1,9 +1,10 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { CustomEase, Flip } from "gsap/all";
 import { useRef, useState } from "react";
 
-gsap.registerPlugin(useGSAP, CustomEase, Flip);
+import { loadPreloaderPlugins } from "../lib/gsap-client";
+
+gsap.registerPlugin(useGSAP);
 
 type LayoutPreloaderProps = {
   images: Array<{ src: string; alt: string }>;
@@ -26,41 +27,49 @@ export default function LayoutPreloader({
     images.length > 1 ? [...images.slice(1), images[0]] : images;
 
   useGSAP(
-    () => {
-      if (!rootRef.current || stagedImages.length === 0) {
-        setIsHidden(true);
-        onComplete?.();
-        return;
-      }
+    (_, contextSafe) => {
+      let isCancelled = false;
+      const withContext =
+        contextSafe ?? ((fn: () => void | Promise<void>) => fn);
 
-      CustomEase.create("preloaderReveal", "0.16, 1, 0.3, 1");
-      CustomEase.create("preloaderHero", "0.6, 0.01, 0.05, 1");
-      CustomEase.create("preloaderSoft", "0.38, 0.005, 0.215, 1");
+      const initPreloader = withContext(async () => {
+        if (!rootRef.current || stagedImages.length === 0) {
+          setIsHidden(true);
+          onComplete?.();
+          return;
+        }
 
-      const q = gsap.utils.selector(rootRef);
-      const wrappers = q(".image-wrapper");
-      const imagesInDom = q(".image-wrapper img");
-      const wordmarkLines = q(".preloader-wordmark .line-inner");
-      const captionLine = q(".preloader-caption .line-inner");
-      const gridColumns = q(".grid-column");
-      const supportingText = q(".preloader-side");
-      const finalWrapper = wrappers[wrappers.length - 1];
-      const finalImage = finalWrapper?.querySelector("img");
-      const heroFrame = document.querySelector<HTMLElement>(".hero-visual-frame");
+        const { CustomEase, Flip } = await loadPreloaderPlugins();
+        if (isCancelled) return;
 
-      if (!finalWrapper || !finalImage || !heroFrame) {
-        setIsHidden(true);
-        onComplete?.();
-        return;
-      }
+        CustomEase.create("preloaderReveal", "0.16, 1, 0.3, 1");
+        CustomEase.create("preloaderHero", "0.6, 0.01, 0.05, 1");
+        CustomEase.create("preloaderSoft", "0.38, 0.005, 0.215, 1");
 
-      const stagedWrappers = wrappers.slice(0, -1);
+        const q = gsap.utils.selector(rootRef);
+        const wrappers = q(".image-wrapper");
+        const imagesInDom = q(".image-wrapper img");
+        const wordmarkLines = q(".preloader-wordmark .line-inner");
+        const captionLine = q(".preloader-caption .line-inner");
+        const gridColumns = q(".grid-column");
+        const supportingText = q(".preloader-side");
+        const finalWrapper = wrappers[wrappers.length - 1];
+        const finalImage = finalWrapper?.querySelector("img");
+        const heroFrame = document.querySelector<HTMLElement>(".hero-visual-frame");
 
-      const tl = gsap.timeline({
-        defaults: { ease: "preloaderReveal" },
-      });
+        if (!finalWrapper || !finalImage || !heroFrame) {
+          setIsHidden(true);
+          onComplete?.();
+          return;
+        }
 
-      tl.set(rootRef.current, { autoAlpha: 1 })
+        const stagedWrappers = wrappers.slice(0, -1);
+
+        const tl = gsap.timeline({
+          defaults: { ease: "preloaderReveal" },
+        });
+
+        tl.set(rootRef.current, { autoAlpha: 1 })
         .set(".image-wrapper", {
           clipPath: "inset(100% 0% 0% 0% round 1.75rem)",
           transformOrigin: "center center",
@@ -257,6 +266,13 @@ export default function LayoutPreloader({
           },
           "exit+=0.1",
         );
+      });
+
+      void initPreloader();
+
+      return () => {
+        isCancelled = true;
+      };
     },
     { scope: rootRef },
   );
