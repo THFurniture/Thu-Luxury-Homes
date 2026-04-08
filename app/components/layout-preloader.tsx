@@ -26,8 +26,10 @@ export default function LayoutPreloader({
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [isHidden, setIsHidden] = useState(false);
   const [areAssetsLoaded, setAreAssetsLoaded] = useState(false);
+  const [isAnimationReady, setIsAnimationReady] = useState(false);
   const stagedImages =
     images.length > 1 ? [...images.slice(1), images[0]] : images;
+  const isPreloaderReady = areAssetsLoaded && isAnimationReady;
   const assetSources = Array.from(
     new Set([
       ...stagedImages.map((image) => image.src),
@@ -39,6 +41,8 @@ export default function LayoutPreloader({
 
   useEffect(() => {
     let isCancelled = false;
+    setAreAssetsLoaded(false);
+    setIsAnimationReady(false);
 
     if (typeof window === "undefined" || assetSources.length === 0) {
       setAreAssetsLoaded(true);
@@ -113,6 +117,7 @@ export default function LayoutPreloader({
 
         const tl = gsap.timeline({
           defaults: { ease: "preloaderReveal" },
+          paused: true,
         });
 
         tl.set(rootRef.current, { autoAlpha: 1 })
@@ -312,6 +317,13 @@ export default function LayoutPreloader({
           },
           "exit+=0.1",
         );
+
+        setIsAnimationReady(true);
+        requestAnimationFrame(() => {
+          if (!isCancelled) {
+            tl.play(0);
+          }
+        });
       });
 
       void initPreloader();
@@ -332,8 +344,8 @@ export default function LayoutPreloader({
       aria-hidden="true"
     >
       <div
-        className={`pointer-events-none absolute inset-0 z-[20] flex items-center justify-center transition-opacity duration-300 ${
-          areAssetsLoaded ? "opacity-0" : "opacity-100"
+        className={`pointer-events-none absolute inset-0 z-[20] flex items-center justify-center ${
+          isPreloaderReady ? "opacity-0" : "opacity-100"
         }`}
       >
         <div className="h-12 w-12 animate-spin rounded-full border-[3px] border-[rgba(105,91,76,0.18)] border-t-[rgba(105,91,76,0.92)]" />
@@ -356,8 +368,8 @@ export default function LayoutPreloader({
         </div>
 
         <div
-          className={`preloader-container relative h-[18.75rem] w-[25rem] max-w-[82vw] transition-opacity duration-300 max-[640px]:h-[15rem] max-[640px]:w-[18rem] ${
-            areAssetsLoaded ? "opacity-100" : "opacity-0"
+          className={`preloader-container relative h-[18.75rem] w-[25rem] max-w-[82vw] max-[640px]:h-[15rem] max-[640px]:w-[18rem] ${
+            isPreloaderReady ? "opacity-100" : "opacity-0"
           }`}
         >
           {stagedImages.map((image, index) => (
@@ -383,8 +395,8 @@ export default function LayoutPreloader({
         </div>
 
         <div
-          className={`preloader-copy pointer-events-none absolute left-1/2 top-1/2 z-[15] w-[34rem] max-w-[82vw] rounded-[1.6rem] border border-white/45 bg-[rgba(250,243,235,0.18)] p-5 backdrop-blur-[14px] transition-opacity duration-300 ${
-            areAssetsLoaded ? "opacity-100" : "opacity-0"
+          className={`preloader-copy pointer-events-none absolute left-1/2 top-1/2 z-[15] w-[34rem] max-w-[82vw] rounded-[1.6rem] border border-white/45 bg-[rgba(250,243,235,0.18)] p-5 backdrop-blur-[14px] ${
+            isPreloaderReady ? "opacity-100" : "opacity-0"
           }`}
         >
           <div className="preloader-wordmark">
