@@ -1,8 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { CustomEase, Flip } from "gsap/all";
 import { useRef, useState } from "react";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, CustomEase, Flip);
 
 type LayoutPreloaderProps = {
   images: Array<{ src: string; alt: string }>;
@@ -26,254 +27,236 @@ export default function LayoutPreloader({
 
   useGSAP(
     () => {
-      let isCancelled = false;
-      let timeline: gsap.core.Timeline | null = null;
-
       if (!rootRef.current || stagedImages.length === 0) {
         setIsHidden(true);
         onComplete?.();
         return;
       }
 
-      void (async () => {
-        const customEaseModulePath = "gsap/CustomEase.js";
-        const flipModulePath = "gsap/Flip.js";
-        const [{ CustomEase }, { Flip }] = await Promise.all([
-          import(customEaseModulePath),
-          import(flipModulePath),
-        ]);
+      CustomEase.create("preloaderReveal", "0.16, 1, 0.3, 1");
+      CustomEase.create("preloaderHero", "0.6, 0.01, 0.05, 1");
+      CustomEase.create("preloaderSoft", "0.38, 0.005, 0.215, 1");
 
-        if (isCancelled) return;
+      const q = gsap.utils.selector(rootRef);
+      const wrappers = q(".image-wrapper");
+      const imagesInDom = q(".image-wrapper img");
+      const wordmarkLines = q(".preloader-wordmark .line-inner");
+      const captionLine = q(".preloader-caption .line-inner");
+      const gridColumns = q(".grid-column");
+      const supportingText = q(".preloader-side");
+      const finalWrapper = wrappers[wrappers.length - 1];
+      const finalImage = finalWrapper?.querySelector("img");
+      const heroFrame = document.querySelector<HTMLElement>(".hero-visual-frame");
 
-        gsap.registerPlugin(CustomEase, Flip);
+      if (!finalWrapper || !finalImage || !heroFrame) {
+        setIsHidden(true);
+        onComplete?.();
+        return;
+      }
 
-        CustomEase.create("preloaderReveal", "0.16, 1, 0.3, 1");
-        CustomEase.create("preloaderHero", "0.6, 0.01, 0.05, 1");
-        CustomEase.create("preloaderSoft", "0.38, 0.005, 0.215, 1");
+      const stagedWrappers = wrappers.slice(0, -1);
 
-        const q = gsap.utils.selector(rootRef);
-        const wrappers = q(".image-wrapper");
-        const imagesInDom = q(".image-wrapper img");
-        const wordmarkLines = q(".preloader-wordmark .line-inner");
-        const captionLine = q(".preloader-caption .line-inner");
-        const gridColumns = q(".grid-column");
-        const supportingText = q(".preloader-side");
-        const finalWrapper = wrappers[wrappers.length - 1];
-        const finalImage = finalWrapper?.querySelector("img");
-        const heroFrame = document.querySelector<HTMLElement>(".hero-visual-frame");
+      const tl = gsap.timeline({
+        defaults: { ease: "preloaderReveal" },
+      });
 
-        if (!finalWrapper || !finalImage || !heroFrame) {
-          setIsHidden(true);
-          onComplete?.();
-          return;
-        }
+      tl.set(rootRef.current, { autoAlpha: 1 })
+        .set(".image-wrapper", {
+          clipPath: "inset(100% 0% 0% 0% round 1.75rem)",
+          transformOrigin: "center center",
+          willChange: "clip-path, transform, opacity",
+        })
+        .set(imagesInDom, {
+          scale: 1.22,
+          transformOrigin: "center center",
+          willChange: "transform",
+        })
+        .set(wordmarkLines, { yPercent: 110, willChange: "transform" })
+        .set(captionLine, { yPercent: 120, willChange: "transform" })
+        .set(".preloader-copy", { autoAlpha: 0, y: 24, xPercent: -50, yPercent: -50 })
+        .set(supportingText, { autoAlpha: 0, y: 32 })
+        .set(".preloader-grid", { autoAlpha: 0 })
+        .set(gridColumns, {
+          scaleY: 0,
+          autoAlpha: 0.35,
+          transformOrigin: "top center",
+          willChange: "transform, opacity",
+        })
+        .to(
+          wrappers,
+          {
+            clipPath: "inset(0% 0% 0% 0% round 1.75rem)",
+            duration: 0.72,
+            stagger: 0.15,
+          },
+          0,
+        )
+        .to(
+          imagesInDom,
+          {
+            scale: 1.04,
+            duration: 1.2,
+            stagger: 0.08,
+            ease: "preloaderHero",
+          },
+          0.02,
+        )
+        .to(
+          supportingText,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.08,
+          },
+          0.22,
+        )
+        .addLabel("expand", ">0.18")
+        .to(
+          stagedWrappers,
+          {
+            autoAlpha: 0,
+            scale: 0.94,
+            duration: 0.42,
+            stagger: 0.05,
+            ease: "power2.out",
+          },
+          "expand",
+        )
+        .to(
+          supportingText,
+          {
+            autoAlpha: 0,
+            x: (index) => (index === 0 ? -80 : 80),
+            duration: 0.8,
+            ease: "preloaderSoft",
+          },
+          "expand+=0.04",
+        )
+        .add(() => {
+          const heroRect = heroFrame.getBoundingClientRect();
+          const state = Flip.getState(finalWrapper);
 
-        const stagedWrappers = wrappers.slice(0, -1);
+          gsap.set(".preloader-stage", { overflow: "visible" });
+          gsap.set(finalWrapper, {
+            position: "fixed",
+            top: heroRect.top,
+            left: heroRect.left,
+            width: heroRect.width,
+            height: heroRect.height,
+            borderRadius: 0,
+            rotate: 0,
+            x: 0,
+            y: 0,
+            zIndex: 12,
+          });
 
-        timeline = gsap.timeline({
-          defaults: { ease: "preloaderReveal" },
-        });
+          // Set image to absolute so we can animate top/height as CSS properties
+          gsap.set(finalImage, {
+            position: "absolute",
+            left: 0,
+            right: 0,
+            width: "100%",
+            top: "0%",
+            height: "100%",
+          });
 
-        timeline
-          .set(rootRef.current, { autoAlpha: 1 })
-          .set(".image-wrapper", {
-            clipPath: "inset(100% 0% 0% 0% round 1.75rem)",
-            transformOrigin: "center center",
-            willChange: "clip-path, transform, opacity",
-          })
-          .set(imagesInDom, {
-            scale: 1.22,
-            transformOrigin: "center center",
-            willChange: "transform",
-          })
-          .set(wordmarkLines, { yPercent: 110, willChange: "transform" })
-          .set(captionLine, { yPercent: 120, willChange: "transform" })
-          .set(".preloader-copy", { autoAlpha: 0, y: 24, xPercent: -50, yPercent: -50 })
-          .set(supportingText, { autoAlpha: 0, y: 32 })
-          .set(".preloader-grid", { autoAlpha: 0 })
-          .set(gridColumns, {
-            scaleY: 0,
-            autoAlpha: 0.35,
-            transformOrigin: "top center",
-            willChange: "transform, opacity",
-          })
-          .to(
-            wrappers,
-            {
-              clipPath: "inset(0% 0% 0% 0% round 1.75rem)",
-              duration: 0.72,
-              stagger: 0.15,
-            },
-            0,
-          )
-          .to(
-            imagesInDom,
-            {
-              scale: 1.04,
-              duration: 1.2,
-              stagger: 0.08,
-              ease: "preloaderHero",
-            },
-            0.02,
-          )
-          .to(
-            supportingText,
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.7,
-              stagger: 0.08,
-            },
-            0.22,
-          )
-          .addLabel("expand", ">0.18")
-          .to(
-            stagedWrappers,
-            {
-              autoAlpha: 0,
-              scale: 0.94,
-              duration: 0.42,
-              stagger: 0.05,
-              ease: "power2.out",
-            },
-            "expand",
-          )
-          .to(
-            supportingText,
-            {
-              autoAlpha: 0,
-              x: (index) => (index === 0 ? -80 : 80),
-              duration: 0.8,
-              ease: "preloaderSoft",
-            },
-            "expand+=0.04",
-          )
-          .add(() => {
-            const heroRect = heroFrame.getBoundingClientRect();
-            const state = Flip.getState(finalWrapper);
+          Flip.from(state, {
+            absolute: true,
+            duration: 1.15,
+            ease: "preloaderHero",
+            simple: true,
+          });
 
-            gsap.set(".preloader-stage", { overflow: "visible" });
-            gsap.set(finalWrapper, {
-              position: "fixed",
-              top: heroRect.top,
-              left: heroRect.left,
-              width: heroRect.width,
-              height: heroRect.height,
-              borderRadius: 0,
-              rotate: 0,
-              x: 0,
-              y: 0,
-              zIndex: 12,
-            });
-
-            gsap.set(finalImage, {
-              position: "absolute",
-              left: 0,
-              right: 0,
-              width: "100%",
-              top: "0%",
-              height: "100%",
-            });
-
-            Flip.from(state, {
-              absolute: true,
-              duration: 1.15,
-              ease: "preloaderHero",
-              simple: true,
-            });
-
-            gsap.to(finalImage, {
-              scale: 1,
-              top: "-20%",
-              height: "140%",
-              duration: 1.15,
-              ease: "preloaderHero",
-            });
-          }, "expand")
-          .to(
-            ".preloader-grid",
-            {
-              autoAlpha: 1,
-              duration: 0.35,
-              ease: "preloaderSoft",
-            },
-            "expand+=0.35",
-          )
-          .to(
-            gridColumns,
-            {
-              scaleY: 1,
-              autoAlpha: 1,
-              duration: 0.7,
-              stagger: 0.035,
-              ease: "preloaderSoft",
-            },
-            "expand+=0.38",
-          )
-          .to(
-            ".preloader-copy",
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.2,
-            },
-            "expand+=0.44",
-          )
-          .to(
-            wordmarkLines,
-            {
-              yPercent: 0,
-              duration: 0.92,
-              stagger: 0.1,
-              ease: "preloaderHero",
-            },
-            "expand+=0.46",
-          )
-          .to(
-            captionLine,
-            {
-              yPercent: 0,
-              duration: 0.82,
-              ease: "preloaderHero",
-            },
-            "expand+=0.58",
-          )
-          .addLabel("exit", ">0.18")
-          .to(
-            ".preloader-copy",
-            {
-              autoAlpha: 0,
-              y: -28,
-              duration: 0.35,
-              ease: "power2.in",
-            },
-            "exit",
-          )
-          .to(
-            ".preloader-grid",
-            {
-              autoAlpha: 0,
-              duration: 0.28,
-            },
-            "exit",
-          )
-          .call(() => onComplete?.(), undefined, "exit+=0.08")
-          .to(
-            rootRef.current,
-            {
-              autoAlpha: 0,
-              duration: 0.88,
-              ease: "power1.inOut",
-              onComplete: () => setIsHidden(true),
-            },
-            "exit+=0.1",
-          );
-      })();
-
-      return () => {
-        isCancelled = true;
-        timeline?.kill();
-      };
+          // Animate image to exactly match hero image positioning so the
+          // parallax has enough vertical bleed and never exposes a gap.
+          // so the visible crop is identical when the preloader fades and hero appears
+          gsap.to(finalImage, {
+            scale: 1,
+            top: "-20%",
+            height: "140%",
+            duration: 1.15,
+            ease: "preloaderHero",
+          });
+        }, "expand")
+        .to(
+          ".preloader-grid",
+          {
+            autoAlpha: 1,
+            duration: 0.35,
+            ease: "preloaderSoft",
+          },
+          "expand+=0.35",
+        )
+        .to(
+          gridColumns,
+          {
+            scaleY: 1,
+            autoAlpha: 1,
+            duration: 0.7,
+            stagger: 0.035,
+            ease: "preloaderSoft",
+          },
+          "expand+=0.38",
+        )
+        .to(
+          ".preloader-copy",
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.2,
+          },
+          "expand+=0.44",
+        )
+        .to(
+          wordmarkLines,
+          {
+            yPercent: 0,
+            duration: 0.92,
+            stagger: 0.1,
+            ease: "preloaderHero",
+          },
+          "expand+=0.46",
+        )
+        .to(
+          captionLine,
+          {
+            yPercent: 0,
+            duration: 0.82,
+            ease: "preloaderHero",
+          },
+          "expand+=0.58",
+        )
+        .addLabel("exit", ">0.18")
+        .to(
+          ".preloader-copy",
+          {
+            autoAlpha: 0,
+            y: -28,
+            duration: 0.35,
+            ease: "power2.in",
+          },
+          "exit",
+        )
+        .to(
+          ".preloader-grid",
+          {
+            autoAlpha: 0,
+            duration: 0.28,
+          },
+          "exit",
+        )
+        .call(() => onComplete?.(), undefined, "exit+=0.08")
+        .to(
+          rootRef.current,
+          {
+            autoAlpha: 0,
+            duration: 0.88,
+            ease: "power1.inOut",
+            onComplete: () => setIsHidden(true),
+          },
+          "exit+=0.1",
+        );
     },
     { scope: rootRef },
   );

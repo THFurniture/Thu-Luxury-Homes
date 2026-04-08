@@ -1,62 +1,52 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
-import { loadScrollTrigger } from "~/lib/gsap.client";
 import { mutedText, serifDisplay } from "./content";
 import { SectionIntro } from "./section-intro";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function ServicesSection() {
   const rootRef = useRef<HTMLElement | null>(null);
 
   useGSAP(
     () => {
-      let isCancelled = false;
-
-      void loadScrollTrigger().then(() => {
-        if (isCancelled) return;
-
-        gsap.set(".services-card-visual", {
-          clipPath: "inset(8% 0% 8% 0% round 1.5rem)",
-        });
-        gsap.set(".services-card-content", {
-          autoAlpha: 0,
-          y: 28,
-        });
-
-        const servicesTimeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: "top 72%",
-            once: true,
-          },
-        });
-
-        servicesTimeline
-          .to(".services-card-visual", {
-            clipPath: "inset(0% 0% 0% 0% round 1.5rem)",
-            duration: 0.95,
-            stagger: 0.15,
-            ease: "power4.out",
-          })
-          .to(
-            ".services-card-content",
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.75,
-              stagger: 0.12,
-              ease: "power3.out",
-            },
-            "-=0.6",
-          );
+      gsap.set(".services-card-visual", {
+        clipPath: "inset(8% 0% 8% 0% round 1.5rem)",
+      });
+      gsap.set(".services-card-content", {
+        autoAlpha: 0,
+        y: 28,
       });
 
-      return () => {
-        isCancelled = true;
-      };
+      const servicesTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top 72%",
+          once: true,
+        },
+      });
+
+      servicesTimeline
+        .to(".services-card-visual", {
+          clipPath: "inset(0% 0% 0% 0% round 1.5rem)",
+          duration: 0.95,
+          stagger: 0.15,
+          ease: "power4.out",
+        })
+        .to(
+          ".services-card-content",
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.12,
+            ease: "power3.out",
+          },
+          "-=0.6",
+        );
     },
     { scope: rootRef },
   );
