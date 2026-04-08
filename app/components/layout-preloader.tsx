@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { CustomEase, Flip } from "gsap/all";
+import { CustomEase } from "gsap/CustomEase";
+import { Flip } from "gsap/Flip";
 import { useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP, CustomEase, Flip);
