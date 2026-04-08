@@ -42,6 +42,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const titleRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const preloadedProjectIndexesRef = useRef<Set<number>>(new Set());
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -49,6 +50,18 @@ export default function ImageReveal({ items }: ImageRevealProps) {
 
   const activeItem = activeIndex === null ? null : items[activeIndex];
   const activeImage = activeItem?.images[activeImageIndex] ?? activeItem?.image;
+
+  const preloadProjectImages = (index: number) => {
+    if (typeof window === "undefined") return;
+    if (preloadedProjectIndexesRef.current.has(index)) return;
+
+    preloadedProjectIndexesRef.current.add(index);
+
+    for (const src of items[index]?.images ?? []) {
+      const image = new window.Image();
+      image.src = src;
+    }
+  };
 
   const { contextSafe } = useGSAP(
     () => {
@@ -131,6 +144,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
   const handleItemClick = contextSafe((index: number) => {
     if (activeIndex !== null) return;
 
+    preloadProjectImages(index);
     setActiveImageIndex(0);
     setActiveIndex(index);
 
@@ -236,6 +250,11 @@ export default function ImageReveal({ items }: ImageRevealProps) {
 
   const handleMobileItemToggle = contextSafe((index: number) => {
     const initialImageIndex = items[index].images.indexOf(items[index].image);
+    const isOpening = activeIndex !== index;
+
+    if (isOpening) {
+      preloadProjectImages(index);
+    }
 
     setImageDirection(1);
     setActiveImageIndex(initialImageIndex >= 0 ? initialImageIndex : 0);
