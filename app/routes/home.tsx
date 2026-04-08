@@ -1,16 +1,19 @@
-import { startTransition, useRef, useState } from "react";
+import { lazy, startTransition, Suspense, useRef, useState } from "react";
 
 import { AboutSection } from "../components/home/about-section";
 import { ClientOnly } from "../components/client-only";
 import { ContactSection } from "../components/home/contact-section";
 import { preloaderImages } from "../components/home/content";
 import { HeroSection } from "../components/home/hero-section";
-import LayoutPreloader from "../components/layout-preloader";
 import { PortfolioSection } from "../components/home/portfolio-section";
 import { ServicesSection } from "../components/home/services-section";
 import { SiteHeader } from "../components/home/site-header";
 import { useHomeAnimations } from "../components/home/use-home-animations";
 import type { Route } from "./+types/home";
+
+// Lazy import prevents this module (and its GSAP plugin imports) from
+// being evaluated during SSR — it only loads once ClientOnly mounts on client.
+const LayoutPreloader = lazy(() => import("../components/layout-preloader"));
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -32,12 +35,14 @@ export default function Home() {
   return (
     <>
       <ClientOnly>
-        <LayoutPreloader
-          images={preloaderImages}
-          onComplete={() => {
-            startTransition(() => setIsSiteReady(true));
-          }}
-        />
+        <Suspense fallback={null}>
+          <LayoutPreloader
+            images={preloaderImages}
+            onComplete={() => {
+              startTransition(() => setIsSiteReady(true));
+            }}
+          />
+        </Suspense>
       </ClientOnly>
 
       <div ref={pageRef} className="relative overflow-x-clip">
