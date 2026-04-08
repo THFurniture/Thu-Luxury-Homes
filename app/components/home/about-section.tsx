@@ -1,116 +1,126 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
+import { loadScrollTrigger } from "~/lib/gsap.client";
 import { mutedText, serifDisplay } from "./content";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP);
 
 export function AboutSection() {
   const rootRef = useRef<HTMLElement | null>(null);
 
   useGSAP(
     () => {
-      gsap.set(".about-main-visual", {
-        clipPath: "inset(18% 0% 0% 0% round 2rem)",
-      });
-      gsap.set(".about-detail-visual", {
-        autoAlpha: 0,
-        y: 52,
-        rotate: -4,
-      });
-      gsap.set(".about-copy-block, .about-proof-item", {
-        autoAlpha: 0,
-        y: 34,
-      });
-      gsap.set(".about-stat-line", {
-        scaleY: 0,
-        transformOrigin: "top center",
-      });
-      gsap.set(".about-stat-item", {
-        autoAlpha: 0,
-        y: 18,
+      let isCancelled = false;
+
+      void loadScrollTrigger().then(() => {
+        if (isCancelled) return;
+
+        gsap.set(".about-main-visual", {
+          clipPath: "inset(18% 0% 0% 0% round 2rem)",
+        });
+        gsap.set(".about-detail-visual", {
+          autoAlpha: 0,
+          y: 52,
+          rotate: -4,
+        });
+        gsap.set(".about-copy-block, .about-proof-item", {
+          autoAlpha: 0,
+          y: 34,
+        });
+        gsap.set(".about-stat-line", {
+          scaleY: 0,
+          transformOrigin: "top center",
+        });
+        gsap.set(".about-stat-item", {
+          autoAlpha: 0,
+          y: 18,
+        });
+
+        const introTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top 68%",
+            once: true,
+          },
+        });
+
+        introTimeline
+          .to(".about-main-visual", {
+            clipPath: "inset(0% 0% 0% 0% round 2rem)",
+            duration: 1.05,
+            ease: "power4.out",
+          })
+          .to(
+            ".about-detail-visual",
+            {
+              autoAlpha: 1,
+              y: 0,
+              rotate: 0,
+              duration: 0.9,
+              ease: "power3.out",
+            },
+            "-=0.72",
+          )
+          .to(
+            ".about-stat-line",
+            {
+              scaleY: 1,
+              duration: 0.7,
+              ease: "power2.out",
+            },
+            "-=0.6",
+          )
+          .to(
+            ".about-stat-item",
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.55,
+              stagger: 0.08,
+              ease: "power3.out",
+            },
+            "-=0.45",
+          )
+          .to(
+            ".about-copy-block, .about-proof-item",
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: "power3.out",
+            },
+            "-=0.6",
+          );
+
+        gsap.to(".about-img-wrapper", {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.1,
+          },
+        });
+
+        gsap.to(".about-stat-rail", {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+        });
       });
 
-      const introTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top 68%",
-          once: true,
-        },
-      });
-
-      introTimeline
-        .to(".about-main-visual", {
-          clipPath: "inset(0% 0% 0% 0% round 2rem)",
-          duration: 1.05,
-          ease: "power4.out",
-        })
-        .to(
-          ".about-detail-visual",
-          {
-            autoAlpha: 1,
-            y: 0,
-            rotate: 0,
-            duration: 0.9,
-            ease: "power3.out",
-          },
-          "-=0.72",
-        )
-        .to(
-          ".about-stat-line",
-          {
-            scaleY: 1,
-            duration: 0.7,
-            ease: "power2.out",
-          },
-          "-=0.6",
-        )
-        .to(
-          ".about-stat-item",
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.55,
-            stagger: 0.08,
-            ease: "power3.out",
-          },
-          "-=0.45",
-        )
-        .to(
-          ".about-copy-block, .about-proof-item",
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
-          },
-          "-=0.6",
-        );
-
-      gsap.to(".about-img-wrapper", {
-        yPercent: -8,
-        ease: "none",
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.1,
-        },
-      });
-
-      gsap.to(".about-stat-rail", {
-        yPercent: -8,
-        ease: "none",
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.2,
-        },
-      });
+      return () => {
+        isCancelled = true;
+      };
     },
     { scope: rootRef },
   );
