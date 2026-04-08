@@ -1,6 +1,7 @@
 import { startTransition, useRef, useState } from "react";
 
 import { AboutSection } from "../components/home/about-section";
+import { ClientOnly } from "../components/client-only";
 import { ContactSection } from "../components/home/contact-section";
 import { preloaderImages } from "../components/home/content";
 import { HeroSection } from "../components/home/hero-section";
@@ -30,12 +31,14 @@ export default function Home() {
 
   return (
     <>
-      <LayoutPreloader
-        images={preloaderImages}
-        onComplete={() => {
-          startTransition(() => setIsSiteReady(true));
-        }}
-      />
+      <ClientOnly>
+        <LayoutPreloader
+          images={preloaderImages}
+          onComplete={() => {
+            startTransition(() => setIsSiteReady(true));
+          }}
+        />
+      </ClientOnly>
 
       <div ref={pageRef} className="relative overflow-x-clip">
         <SiteHeader />
