@@ -111,7 +111,7 @@ export function ServicesSection() {
             <img
               className="absolute inset-0 h-full w-full object-cover"
               src="/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-5.avif"
-              alt="Beautifully refreshed occupied home with layered styling"
+              alt="Beautifully refreshed home with layered styling"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,23,18,0.12)_0%,rgba(31,23,18,0.54)_100%)]" />
             <div className="relative z-10 p-8 max-[640px]:p-6">
