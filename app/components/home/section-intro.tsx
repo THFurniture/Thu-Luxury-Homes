@@ -14,7 +14,7 @@ export function SectionIntro({
 }: SectionIntroProps) {
   return (
     <div
-      className={`section-intro grid grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] items-start gap-8 max-[1100px]:grid-cols-1 ${className}`}
+      className={`section-intro grid grid-cols-1 items-start gap-4 ${className}`}
     >
       <p className={`section-tag ${eyebrow}`}>
         <RevealLine>{tag}</RevealLine>

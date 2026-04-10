@@ -98,10 +98,10 @@ export const serviceAreas = [
   "Coquitlam",
 ];
 
-export const mutedText = "text-[rgba(105,91,76,0.92)]";
+export const mutedText = "text-[rgba(229,229,229,0.78)]";
 export const eyebrow =
-  "m-0 text-[0.78rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(105,91,76,0.92)]";
+  "m-0 text-[0.78rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,255,255,0.62)]";
 export const serifDisplay =
-  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#1f1712]';
+  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
 export const glassPanel =
-  "rounded-[1.5rem] border border-[rgba(31,23,18,0.14)] bg-[rgba(255,252,247,0.58)] p-6 backdrop-blur-[14px]";
+  "rounded-[1.5rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-6 backdrop-blur-[14px]";

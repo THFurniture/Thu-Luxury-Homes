@@ -1,12 +1,11 @@
 import ImageReveal from "../image-reveal";
 import {
   portfolioProjects,
-  mutedText,
 } from "./content";
 import { SectionIntro } from "./section-intro";
 
 export function PortfolioSection() {
-  const portfolioSurface = "bg-[#efe3d5]";
+  const portfolioSurface = "bg-[#080808]";
 
   const revealItems = portfolioProjects.map((project, index) => ({
     images: project.images,
@@ -28,7 +27,7 @@ export function PortfolioSection() {
           <SectionIntro
             tag="Our work"
             title="Selected projects"
-            className="portfolio-intro max-w-[42rem] grid-cols-1 gap-8 [&_.section-copy]:leading-[1.02]"
+            className="portfolio-intro max-w-[42rem] grid-cols-1 gap-4 [&_.section-copy]:text-left [&_.section-copy]:leading-[1.02]"
           />
         </div>
       </div>

@@ -17,11 +17,8 @@ type ImageRevealProps = {
   items: ImageRevealItem[];
 };
 
-function getWrapHeight(index: number): string {
-  if (index % 4 === 1) return "30rem";
-  if (index % 4 === 2) return "22rem";
-  if (index % 4 === 3) return "27rem";
-  return "25rem";
+function getWrapHeight(): string {
+  return "32rem";
 }
 
 export default function ImageReveal({ items }: ImageRevealProps) {
@@ -267,10 +264,10 @@ export default function ImageReveal({ items }: ImageRevealProps) {
       className="reveal-fade portfolio-track relative left-1/2 w-screen -translate-x-1/2"
     >
       <div className="hidden min-h-[40rem] min-[901px]:block">
-        <div className="relative overflow-hidden bg-[#efe3d5] px-8 py-10">
+        <div className="relative overflow-hidden bg-[#080808] px-8 py-10">
           <div
             ref={backgroundRef}
-            className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(92,61,36,0.94)_0%,rgba(63,42,27,0.9)_100%)]"
+            className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(18,18,18,0.96)_0%,rgba(0,0,0,0.92)_100%)]"
           />
 
           <div className="mx-auto flex min-h-[35rem] max-w-[100rem] items-end gap-5">
@@ -282,31 +279,31 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                 }}
                 type="button"
                 className="group relative flex-1 cursor-pointer border-0 bg-transparent p-0 text-left"
-                style={{ height: getWrapHeight(index) }}
+                style={{ height: getWrapHeight() }}
                 onClick={() => handleItemClick(index)}
                 onMouseMove={(event) => handleMouseMove(event, index)}
                 onMouseLeave={(event) => handleMouseLeave(event, index)}
               >
-                <div className="absolute inset-0 overflow-hidden rounded-[1.6rem]">
+                <div className="absolute inset-0 overflow-hidden">
                   <div
                     ref={(element) => {
                       imageRefs.current[index] = element;
                     }}
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                      backgroundImage: `linear-gradient(180deg, rgba(19, 14, 10, 0.08), rgba(19, 14, 10, 0.4)), url(${item.image})`,
+                      backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.42)), url(${item.image})`,
                       transform: "scale(1.08)",
                     }}
                   />
                 </div>
 
-                <div className="absolute inset-0 rounded-[1.6rem] border border-[rgba(255,248,241,0.24)] bg-[linear-gradient(180deg,rgba(61,40,24,0.04)_0%,rgba(61,40,24,0.46)_100%)]" />
+                <div className="absolute inset-0 border border-[rgba(255,255,255,0.24)] bg-[linear-gradient(180deg,rgba(255,255,255,0.03)_0%,rgba(0,0,0,0.5)_100%)]" />
 
                 <span
                   ref={(element) => {
                     numberRefs.current[index] = element;
                   }}
-                  className="absolute right-4 top-4 text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,244,235,0.86)]"
+                  className="absolute right-4 top-4 text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,255,255,0.84)]"
                 >
                   {item.number}
                 </span>
@@ -316,11 +313,11 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                     ref={(element) => {
                       titleRefs.current[index] = element;
                     }}
-                    className='block max-w-[10rem] font-["Cormorant_Garamond",Georgia,serif] text-[2rem] leading-[0.92] text-[rgba(255,248,241,0.96)]'
+                    className='block max-w-[10rem] font-["Cormorant_Garamond",Georgia,serif] text-[2rem] leading-[0.92] text-[rgba(255,255,255,0.96)]'
                   >
                     {item.title}
                   </span>
-                  <span className="mt-3 block text-[0.82rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,244,235,0.72)]">
+                  <span className="mt-3 block text-[0.82rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.72)]">
                     {item.type}
                   </span>
                 </div>
@@ -330,11 +327,11 @@ export default function ImageReveal({ items }: ImageRevealProps) {
 
           <div
             ref={detailRef}
-            className="absolute inset-0 z-20 bg-[linear-gradient(180deg,rgba(77,51,31,0.96)_0%,rgba(56,37,23,0.95)_100%)] px-8 py-8 text-[rgba(255,248,241,1)]"
+            className="absolute inset-0 z-20 bg-[linear-gradient(180deg,rgba(18,18,18,0.98)_0%,rgba(0,0,0,0.95)_100%)] px-8 py-8 text-white"
           >
             {activeItem ? (
               <div className="mx-auto grid h-full max-w-[100rem] grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.68fr)] gap-8 max-[1100px]:grid-cols-1">
-                <div className="relative overflow-hidden rounded-[1.7rem]">
+                <div className="relative overflow-hidden">
                   <img
                     ref={activeImageRef}
                     key={activeImage}
@@ -342,9 +339,9 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                     src={activeImage}
                     alt={activeItem.title}
                   />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,13,9,0.04)_0%,rgba(20,13,9,0.32)_100%)]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(0,0,0,0.32)_100%)]" />
                   <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5">
-                    <div className="rounded-full bg-[rgba(28,18,11,0.42)] px-3 py-1.5 text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-[rgba(255,244,235,0.82)] backdrop-blur-[10px]">
+                    <div className="rounded-full bg-[rgba(255,255,255,0.14)] px-3 py-1.5 text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-[rgba(255,255,255,0.82)] backdrop-blur-[10px]">
                       {String(activeImageIndex + 1).padStart(2, "0")} / {String(activeItem.images.length).padStart(2, "0")}
                     </div>
 
@@ -352,7 +349,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                       <button
                         type="button"
                         onClick={handlePrevImage}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,248,241,0.24)] bg-[rgba(28,18,11,0.35)] text-[1.25rem] text-white transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,248,241,0.14)]"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.24)] bg-[rgba(255,255,255,0.12)] text-[1.25rem] text-white transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,255,255,0.18)]"
                         aria-label="Previous project image"
                       >
                         &larr;
@@ -360,7 +357,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                       <button
                         type="button"
                         onClick={handleNextImage}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,248,241,0.24)] bg-[rgba(28,18,11,0.35)] text-[1.25rem] text-white transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,248,241,0.14)]"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.24)] bg-[rgba(255,255,255,0.12)] text-[1.25rem] text-white transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,255,255,0.18)]"
                         aria-label="Next project image"
                       >
                         &rarr;
@@ -369,21 +366,21 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                   </div>
                 </div>
 
-                <div className="flex min-h-[24rem] flex-col justify-between rounded-[1.7rem] border border-[rgba(255,248,241,0.18)] bg-[linear-gradient(180deg,rgba(255,248,241,0.14)_0%,rgba(255,248,241,0.08)_100%)] p-7 backdrop-blur-[14px]">
+                <div className="flex min-h-[24rem] flex-col justify-between border border-[rgba(255,255,255,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.06)_100%)] p-7 backdrop-blur-[14px]">
                   <div>
-                    <span className="text-[0.75rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,244,235,0.64)]">
+                    <span className="text-[0.75rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,255,255,0.64)]">
                       {activeItem.number}
                     </span>
                     <h3 className='mt-4 font-["Cormorant_Garamond",Georgia,serif] text-[clamp(2.6rem,4vw,4.3rem)] leading-[0.92] text-white'>
                       {activeItem.title}
                     </h3>
-                    <p className="mt-4 text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,244,235,0.72)]">
+                    <p className="mt-4 text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.72)]">
                       {activeItem.type}
                     </p>
-                    <p className="mt-2 text-[1rem] leading-[1.7] text-[rgba(255,244,235,0.82)]">
+                    <p className="mt-2 text-[1rem] leading-[1.7] text-[rgba(255,255,255,0.82)]">
                       {activeItem.location}
                     </p>
-                    <p className="mt-6 max-w-[26rem] text-[1rem] leading-[1.8] text-[rgba(255,244,235,0.82)]">
+                    <p className="mt-6 max-w-[26rem] text-[1rem] leading-[1.8] text-[rgba(255,255,255,0.82)]">
                       Every staging plan is composed to sharpen first impressions,
                       guide buyer attention, and make the property feel resolved
                       the moment they step inside.
@@ -391,13 +388,13 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                   </div>
 
                   <div className="flex items-center justify-between gap-4">
-                    <span className="text-[0.9rem] leading-[1.6] text-[rgba(255,244,235,0.7)]">
+                    <span className="text-[0.9rem] leading-[1.6] text-[rgba(255,255,255,0.7)]">
                       Click back to return to the project lineup.
                     </span>
                     <button
                       type="button"
                       onClick={handleBackClick}
-                      className="inline-flex min-h-12 items-center justify-center rounded-full border border-[rgba(255,248,241,0.24)] px-5 py-3 text-[0.9rem] font-bold text-white transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,248,241,0.12)] cursor-pointer"
+                      className="inline-flex min-h-12 items-center justify-center rounded-full border border-[rgba(255,255,255,0.24)] px-5 py-3 text-[0.9rem] font-bold text-white transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,255,255,0.12)] cursor-pointer"
                     >
                       Back to projects
                     </button>
@@ -419,7 +416,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
           return (
             <article
               key={item.title}
-              className="overflow-hidden rounded-[1.7rem] border border-[rgba(109,71,39,0.14)] bg-[#efe3d5] shadow-[0_22px_60px_rgba(82,55,32,0.1)]"
+              className="overflow-hidden border border-white/10 bg-[#111111] shadow-[0_22px_60px_rgba(0,0,0,0.18)]"
             >
               <button
                 type="button"
@@ -436,17 +433,17 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                     src={mobileImage}
                     alt={item.title}
                   />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,13,9,0.04)_0%,rgba(20,13,9,0.24)_100%)]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(0,0,0,0.28)_100%)]" />
                   <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 max-[560px]:p-4">
                     <div>
-                      <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,244,235,0.78)]">
+                      <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,255,255,0.8)]">
                         {item.number}
                       </span>
-                      <h3 className='mt-2 font-["Cormorant_Garamond",Georgia,serif] text-[2.1rem] leading-[0.95] text-[#fff8f1] max-[560px]:text-[1.8rem]'>
+                      <h3 className='mt-2 font-["Cormorant_Garamond",Georgia,serif] text-[2.1rem] leading-[0.95] text-white max-[560px]:text-[1.8rem]'>
                         {item.title}
                       </h3>
                     </div>
-                    <span className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[rgba(255,248,241,0.3)] bg-[rgba(28,18,11,0.28)] px-3 text-[1rem] text-white backdrop-blur-[10px]">
+                    <span className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.14)] px-3 text-[1rem] text-white backdrop-blur-[10px]">
                       {isActive ? "−" : "+"}
                     </span>
                   </div>
@@ -457,28 +454,28 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                 id={`mobile-project-${index}`}
                 className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${isActive ? "max-h-[36rem] opacity-100" : "max-h-0 opacity-0"}`}
               >
-                <div className="space-y-5 border-t border-[rgba(109,71,39,0.12)] p-5 max-[560px]:space-y-4 max-[560px]:p-4">
-                  <p className="text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(109,71,39,1)]">
+                <div className="space-y-5 border-t border-[rgba(17,17,17,0.12)] p-5 max-[560px]:space-y-4 max-[560px]:p-4">
+                  <p className="text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(17,17,17,1)]">
                     {item.type}
                   </p>
-                  <p className="text-[0.98rem] leading-[1.65] text-[rgba(105,91,76,0.92)]">
+                  <p className="text-[0.98rem] leading-[1.65] text-[rgba(38,38,38,0.92)]">
                     {item.location}
                   </p>
-                  <p className="text-[0.98rem] leading-[1.75] text-[rgba(105,91,76,0.92)]">
+                  <p className="text-[0.98rem] leading-[1.75] text-[rgba(38,38,38,0.92)]">
                     Every staging plan is composed to sharpen first impressions,
                     guide buyer attention, and make the property feel resolved
                     the moment they step inside.
                   </p>
 
                   <div className="flex items-center justify-between gap-3">
-                    <div className="text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-[rgba(105,91,76,0.78)]">
+                    <div className="text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-[rgba(38,38,38,0.78)]">
                       {String(activeImageIndex + 1).padStart(2, "0")} / {String(item.images.length).padStart(2, "0")}
                     </div>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={handlePrevImage}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(109,71,39,0.18)] bg-[rgba(255,248,241,0.6)] text-[1.15rem] text-[#1f1712]"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(17,17,17,0.18)] bg-[rgba(255,255,255,0.7)] text-[1.15rem] text-[#111111]"
                         aria-label="Previous project image"
                       >
                         &larr;
@@ -486,7 +483,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                       <button
                         type="button"
                         onClick={handleNextImage}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(109,71,39,0.18)] bg-[rgba(255,248,241,0.6)] text-[1.15rem] text-[#1f1712]"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(17,17,17,0.18)] bg-[rgba(255,255,255,0.7)] text-[1.15rem] text-[#111111]"
                         aria-label="Next project image"
                       >
                         &rarr;
