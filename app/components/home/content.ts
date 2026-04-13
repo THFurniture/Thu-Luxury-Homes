@@ -67,7 +67,7 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     name: "Mathers Ave 2495",
-    type: "Occupied home refresh",
+    type: "West Vancouver Staging",
     location: "West Vancouver",
     image: "/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-5.avif",
     images: [
