@@ -454,28 +454,28 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                 id={`mobile-project-${index}`}
                 className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${isActive ? "max-h-[36rem] opacity-100" : "max-h-0 opacity-0"}`}
               >
-                <div className="space-y-5 border-t border-[rgba(17,17,17,0.12)] p-5 max-[560px]:space-y-4 max-[560px]:p-4">
-                  <p className="text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(17,17,17,1)]">
+                <div className="space-y-5 border-t border-[rgba(255,255,255,0.12)] p-5 max-[560px]:space-y-4 max-[560px]:p-4">
+                  <p className="text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.72)]">
                     {item.type}
                   </p>
-                  <p className="text-[0.98rem] leading-[1.65] text-[rgba(38,38,38,0.92)]">
+                  <p className="text-[0.98rem] leading-[1.65] text-[rgba(255,255,255,0.84)]">
                     {item.location}
                   </p>
-                  <p className="text-[0.98rem] leading-[1.75] text-[rgba(38,38,38,0.92)]">
+                  <p className="text-[0.98rem] leading-[1.75] text-[rgba(255,255,255,0.82)]">
                     Every staging plan is composed to sharpen first impressions,
                     guide buyer attention, and make the property feel resolved
                     the moment they step inside.
                   </p>
 
                   <div className="flex items-center justify-between gap-3">
-                    <div className="text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-[rgba(38,38,38,0.78)]">
+                    <div className="text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-[rgba(255,255,255,0.64)]">
                       {String(activeImageIndex + 1).padStart(2, "0")} / {String(item.images.length).padStart(2, "0")}
                     </div>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={handlePrevImage}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(17,17,17,0.18)] bg-[rgba(255,255,255,0.7)] text-[1.15rem] text-[#111111]"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.24)] bg-[rgba(255,255,255,0.12)] text-[1.15rem] text-white"
                         aria-label="Previous project image"
                       >
                         &larr;
@@ -483,7 +483,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                       <button
                         type="button"
                         onClick={handleNextImage}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(17,17,17,0.18)] bg-[rgba(255,255,255,0.7)] text-[1.15rem] text-[#111111]"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.24)] bg-[rgba(255,255,255,0.12)] text-[1.15rem] text-white"
                         aria-label="Next project image"
                       >
                         &rarr;
