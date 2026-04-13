@@ -13,7 +13,7 @@ export function SiteFooter() {
     <footer className="relative overflow-hidden border-t border-white/10 bg-[linear-gradient(180deg,#050505_0%,#0a0a0a_42%,#050505_100%)] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_26%),linear-gradient(180deg,transparent_0%,rgba(255,255,255,0.02)_100%)]" />
 
-      <div className="relative mx-auto flex min-h-[28rem] max-w-[90rem] flex-col justify-between px-5 py-16 max-[560px]:min-h-[24rem] max-[560px]:px-4 max-[560px]:py-12">
+      <div className="relative flex min-h-[28rem] flex-col justify-between px-5 py-16 max-[560px]:min-h-[24rem] max-[560px]:px-4 max-[560px]:py-12">
         <div className="grid grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-10">
           <div className="max-w-[44rem]">
             <p className="text-[0.74rem] font-extrabold uppercase tracking-[0.24em] text-white/42">

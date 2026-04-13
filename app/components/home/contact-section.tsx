@@ -14,7 +14,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="section contact-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden pt-32"
+      className="section contact-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden py-32"
       data-section
     >
       <div className="mx-auto max-w-[90rem] px-5 max-[560px]:px-4">
@@ -25,7 +25,8 @@ export function ContactSection() {
         />
       </div>
 
-      <div className="mt-14 grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-stretch gap-px border-y border-[rgba(17,17,17,0.13)] bg-[rgba(17,17,17,0.13)] shadow-[0_8px_48px_rgba(0,0,0,0.07)] max-[1000px]:grid-cols-1">
+      <div className="mx-auto mt-14 max-w-[90rem] px-5 max-[560px]:px-4">
+        <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-stretch gap-px border-y border-[rgba(17,17,17,0.13)] bg-[rgba(17,17,17,0.13)] shadow-[0_8px_48px_rgba(0,0,0,0.07),0_18px_40px_rgba(214,214,214,0.18)] max-[1000px]:grid-cols-1">
 
         {/* Left — identity panel */}
         <aside className="reveal-fade flex flex-col justify-between gap-10 bg-[rgba(10,10,10,1)] p-10 max-[560px]:p-7">
@@ -160,6 +161,7 @@ export function ContactSection() {
               </button>
             </div>
           </form>
+        </div>
         </div>
       </div>
     </section>
