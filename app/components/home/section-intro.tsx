@@ -1,4 +1,3 @@
-import { eyebrow, serifDisplay } from "./content";
 import { RevealLine } from "./reveal-line";
 
 type SectionIntroProps = {
@@ -6,6 +5,11 @@ type SectionIntroProps = {
   title: string;
   className?: string;
 };
+
+const eyebrow =
+  "m-0 text-[0.78rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,255,255,0.62)]";
+const serifDisplay =
+  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
 
 export function SectionIntro({
   tag,

@@ -1,14 +1,20 @@
-import {
-  mutedText,
-  serifDisplay,
-  serviceAreas,
-} from "./content";
 import { SectionIntro } from "./section-intro";
 
 const inputClassName =
   "w-full border-0 border-b border-[rgba(17,17,17,0.18)] bg-transparent px-0 py-3 text-[#111111] outline-none transition placeholder:text-[rgba(82,82,82,0.45)] focus:border-[rgba(17,17,17,0.72)] focus:shadow-none";
 const labelClassName =
   "text-[0.72rem] font-extrabold uppercase tracking-[0.18em] text-[rgba(38,38,38,0.8)]";
+const mutedText = "text-[rgba(229,229,229,0.78)]";
+const serifDisplay =
+  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
+const serviceAreas = [
+  "Vancouver",
+  "West Van",
+  "North Van",
+  "Burnaby",
+  "Richmond",
+  "Coquitlam",
+];
 
 export function ContactSection() {
   return (

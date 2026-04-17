@@ -3,9 +3,12 @@ import gsap from "gsap";
 import { useRef } from "react";
 
 import { loadScrollTrigger } from "../../lib/gsap-client";
-import { mutedText, serifDisplay } from "./content";
 
 gsap.registerPlugin(useGSAP);
+
+const mutedText = "text-[rgba(229,229,229,0.78)]";
+const serifDisplay =
+  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
 
 export function AboutSection() {
   const rootRef = useRef<HTMLElement | null>(null);

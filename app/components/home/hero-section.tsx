@@ -1,5 +1,7 @@
-import { heroImages, serifDisplay } from "./content";
 import { RevealLine } from "./reveal-line";
+
+const serifDisplay =
+  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
 
 export function HeroSection() {
   return (
@@ -9,8 +11,8 @@ export function HeroSection() {
           <img
             className="absolute inset-x-0 top-[-20%] h-[140%] w-full object-cover"
             data-parallax="soft"
-            src={heroImages[2].src}
-            alt={heroImages[2].alt}
+            src="/home-imgs/home-hero.avif"
+            alt="Luxury staged home interior with soft daylight and refined contemporary furniture"
             loading="eager"
             fetchPriority="high"
           />

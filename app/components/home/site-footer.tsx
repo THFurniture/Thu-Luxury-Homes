@@ -1,11 +1,17 @@
-import { serviceAreas } from "./content";
-
 const footerLinks = [
   { href: "#top", label: "Home" },
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
   { href: "#portfolio", label: "Portfolio" },
   { href: "#contact", label: "Contact" },
+];
+const serviceAreas = [
+  "Vancouver",
+  "West Van",
+  "North Van",
+  "Burnaby",
+  "Richmond",
+  "Coquitlam",
 ];
 
 export function SiteFooter() {
