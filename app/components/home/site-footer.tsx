@@ -1,9 +1,12 @@
+import { MdOutlineEmail } from "react-icons/md";
+import { SiInstagram, SiYoutube } from "react-icons/si";
+import { Link } from "react-router";
+
 const footerLinks = [
-  { href: "#top", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/about-us", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/contact", label: "Contact" },
 ];
 const serviceAreas = [
   "Vancouver",
@@ -12,6 +15,23 @@ const serviceAreas = [
   "Burnaby",
   "Richmond",
   "Coquitlam",
+];
+const contactLinks = [
+  {
+    href: "mailto:theonehomestaging@gmail.com",
+    label: "theonehomestaging@gmail.com",
+    Icon: MdOutlineEmail,
+  },
+  {
+    href: "https://www.instagram.com/the.one.staging",
+    label: "Instagram",
+    Icon: SiInstagram,
+  },
+  {
+    href: "https://www.youtube.com/c/TheOneHomeStagingLtd",
+    label: "YouTube",
+    Icon: SiYoutube,
+  },
 ];
 
 export function SiteFooter() {
@@ -42,9 +62,9 @@ export function SiteFooter() {
               </p>
               <div className="mt-4 grid gap-3 text-[1rem] text-white/76">
                 {footerLinks.map((link) => (
-                  <a key={link.href} href={link.href} className="w-fit">
+                  <Link key={link.href} to={link.href} className="w-fit">
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -56,6 +76,26 @@ export function SiteFooter() {
               <p className="mt-4 max-w-[18rem] text-[0.98rem] leading-[1.9] text-white/62">
                 {serviceAreas.join(" / ")}
               </p>
+            </div>
+
+            <div>
+              <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-white/40">
+                Contact
+              </p>
+              <div className="mt-4 grid gap-3 text-[0.98rem] text-white/62">
+                {contactLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="inline-flex w-fit max-w-full items-center gap-2 break-words underline-offset-4 hover:text-white/82 hover:underline"
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                  >
+                    <link.Icon className="h-4 w-4 shrink-0 text-white/44" aria-hidden="true" />
+                    <span className="min-w-0 break-words">{link.label}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

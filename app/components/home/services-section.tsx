@@ -1,77 +1,15 @@
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useRef } from "react";
-
-import { loadScrollTrigger } from "../../lib/gsap-client";
+import { m, useReducedMotion } from "motion/react";
 import { SectionIntro } from "./section-intro";
-
-gsap.registerPlugin(useGSAP);
 
 const serifDisplay =
   'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
 
 export function ServicesSection() {
-  const rootRef = useRef<HTMLElement | null>(null);
-
-  useGSAP(
-    (_, contextSafe) => {
-      let isCancelled = false;
-      const withContext =
-        contextSafe ?? ((fn: () => void | Promise<void>) => fn);
-
-      const initSectionAnimations = withContext(async () => {
-        await loadScrollTrigger();
-        if (isCancelled) return;
-
-        gsap.set(".services-card-visual", {
-          clipPath: "inset(8% 0% 8% 0%)",
-        });
-        gsap.set(".services-card-content", {
-          autoAlpha: 0,
-          y: 28,
-        });
-
-        const servicesTimeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: "top 72%",
-            once: true,
-          },
-        });
-
-        servicesTimeline
-          .to(".services-card-visual", {
-            clipPath: "inset(0% 0% 0% 0%)",
-            duration: 0.95,
-            stagger: 0.15,
-            ease: "power4.out",
-          })
-          .to(
-            ".services-card-content",
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.75,
-              stagger: 0.12,
-              ease: "power3.out",
-            },
-            "-=0.6",
-          );
-      });
-
-      void initSectionAnimations();
-
-      return () => {
-        isCancelled = true;
-      };
-    },
-    { scope: rootRef },
-  );
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section
       id="services"
-      ref={rootRef}
       className="section services-section px-5 pt-32 pb-12 max-[560px]:px-4"
       data-section
     >
@@ -84,14 +22,34 @@ export function ServicesSection() {
 
         <div className="mt-14 grid grid-cols-2 gap-8 max-[980px]:gap-6 max-[820px]:grid-cols-1">
           <article className="services-card-1 overflow-hidden rounded-none">
-            <div className="services-card-visual relative flex min-h-[32rem] flex-col justify-end overflow-hidden rounded-none border border-white/10 max-[640px]:min-h-[26rem]">
+            <m.div
+              className="services-card-visual relative flex min-h-[32rem] flex-col justify-end overflow-hidden rounded-none border border-white/10 max-[640px]:min-h-[26rem]"
+              initial={
+                prefersReducedMotion
+                  ? false
+                  : { clipPath: "inset(8% 0% 8% 0%)" }
+              }
+              whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+            >
               <img
                 className="absolute inset-0 h-full w-full rounded-none object-cover"
                 src="/projects-imgs/w26_residence/w26-residence-4.avif"
                 alt="Luxuriously staged living room with designer furniture and warm lighting"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(0,0,0,0.66)_100%)]" />
-              <div className="services-card-content relative z-10 p-8 max-[640px]:p-6">
+              <m.div
+                className="services-card-content relative z-10 p-8 max-[640px]:p-6"
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{
+                  duration: 0.75,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.18,
+                }}
+              >
                 <div className="mb-4 inline-block text-[0.75rem] font-extrabold uppercase tracking-[0.18em] text-white/85">
                   01
                 </div>
@@ -109,19 +67,43 @@ export function ServicesSection() {
                   <li>+ Designer furniture & accessories</li>
                   <li>+ Professional styling & arrangement</li>
                 </ul>
-              </div>
-            </div>
+              </m.div>
+            </m.div>
           </article>
 
           <article className="services-card-2 overflow-hidden rounded-none">
-            <div className="services-card-visual relative flex min-h-[32rem] flex-col justify-end overflow-hidden rounded-none border border-white/10 max-[640px]:min-h-[26rem]">
+            <m.div
+              className="services-card-visual relative flex min-h-[32rem] flex-col justify-end overflow-hidden rounded-none border border-white/10 max-[640px]:min-h-[26rem]"
+              initial={
+                prefersReducedMotion
+                  ? false
+                  : { clipPath: "inset(8% 0% 8% 0%)" }
+              }
+              whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{
+                duration: 0.95,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.15,
+              }}
+            >
               <img
                 className="absolute inset-0 h-full w-full rounded-none object-cover"
                 src="/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-5.avif"
                 alt="Beautifully refreshed home with layered styling"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(0,0,0,0.66)_100%)]" />
-              <div className="services-card-content relative z-10 p-8 max-[640px]:p-6">
+              <m.div
+                className="services-card-content relative z-10 p-8 max-[640px]:p-6"
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{
+                  duration: 0.75,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.33,
+                }}
+              >
                 <div className="mb-4 inline-block text-[0.75rem] font-extrabold uppercase tracking-[0.18em] text-white/85">
                   02
                 </div>
@@ -138,8 +120,8 @@ export function ServicesSection() {
                   <li>+ Personalized design consultation</li>
                   <li>+ Curated furniture & decor selection</li>
                 </ul>
-              </div>
-            </div>
+              </m.div>
+            </m.div>
           </article>
         </div>
       </div>

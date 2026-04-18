@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { LazyMotion, domAnimation } from "motion/react";
 import type { ReactNode } from "react";
 
 import type { Route } from "./+types/root";
@@ -34,7 +35,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Links />
       </head>
       <body className='min-w-80 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.06),transparent_24%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.04),transparent_22%),linear-gradient(180deg,#050505_0%,#101010_100%)] font-["Manrope",ui-sans-serif,system-ui,sans-serif] text-[#f5f5f5] antialiased'>
-        {children}
+        <LazyMotion features={domAnimation}>{children}</LazyMotion>
         <ScrollRestoration />
         <Scripts />
       </body>

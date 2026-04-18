@@ -10,7 +10,10 @@
       }
     },
     "routeIdToServerBundleId": {
-      "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+      "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/about-us": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/projects": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/contact": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
     },
     "routes": {
       "root": {
@@ -24,6 +27,33 @@
         "parentId": "root",
         "file": "app/routes/home.tsx",
         "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/about-us": {
+        "id": "routes/about-us",
+        "parentId": "root",
+        "file": "app/routes/about-us.tsx",
+        "path": "about-us",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/projects": {
+        "id": "routes/projects",
+        "parentId": "root",
+        "file": "app/routes/projects.tsx",
+        "path": "projects",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/contact": {
+        "id": "routes/contact",
+        "parentId": "root",
+        "file": "app/routes/contact.tsx",
+        "path": "contact",
         "config": {
           "runtime": "nodejs"
         }
@@ -55,6 +85,24 @@
         "parentId": "root",
         "file": "routes/home.tsx",
         "index": true
+      },
+      "routes/about-us": {
+        "id": "routes/about-us",
+        "parentId": "root",
+        "file": "routes/about-us.tsx",
+        "path": "about-us"
+      },
+      "routes/projects": {
+        "id": "routes/projects",
+        "parentId": "root",
+        "file": "routes/projects.tsx",
+        "path": "projects"
+      },
+      "routes/contact": {
+        "id": "routes/contact",
+        "parentId": "root",
+        "file": "routes/contact.tsx",
+        "path": "contact"
       }
     },
     "routeDiscovery": {
@@ -74,6 +122,18 @@
           {
             "file": "routes/home.tsx",
             "index": true
+          },
+          {
+            "file": "routes/about-us.tsx",
+            "path": "about-us"
+          },
+          {
+            "file": "routes/projects.tsx",
+            "path": "projects"
+          },
+          {
+            "file": "routes/contact.tsx",
+            "path": "contact"
           }
         ]
       }

@@ -8,6 +8,7 @@ import { ServicesSection } from "../components/home/services-section";
 import { SiteFooter } from "../components/home/site-footer";
 import { SiteHeader } from "../components/home/site-header";
 import { useHomeAnimations } from "../components/home/use-home-animations";
+import { handleContactFormAction } from "../lib/contact-form.server";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
@@ -19,6 +20,10 @@ export function meta({}: Route.MetaArgs) {
         "The One Home Staging provides premium home staging and interior design services across Greater Vancouver, BC.",
     },
   ];
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  return handleContactFormAction(request);
 }
 
 export default function Home() {
