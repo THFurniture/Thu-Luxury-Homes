@@ -12,7 +12,7 @@ const labelClassName =
   "text-[0.72rem] font-extrabold uppercase tracking-[0.18em] text-[rgba(38,38,38,0.8)]";
 const mutedText = "text-[rgba(229,229,229,0.78)]";
 const serifDisplay =
-  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
+  'font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin tracking-[-0.03em] text-[#f5f5f5]';
 const serviceAreas = [
   "Vancouver",
   "West Van",

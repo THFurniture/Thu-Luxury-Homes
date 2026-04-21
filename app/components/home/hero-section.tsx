@@ -5,7 +5,7 @@ import { useParallax } from "../../lib/use-parallax";
 import { RevealLine } from "./reveal-line";
 
 const serifDisplay =
-  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
+  'font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin tracking-[-0.03em] text-[#f5f5f5]';
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 const heroContentVariants = {
@@ -81,15 +81,10 @@ export function HeroSection() {
           animate="visible"
           variants={heroContentVariants}
         >
-          <m.p
-            className="hero-meta m-0 text-[0.78rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(214,214,214,0.92)]"
-            variants={heroFadeUpVariants}
-          >
-            Vancouver&apos;s Premier Home Staging Company
-          </m.p>
+        
 
           <m.h1
-            className={`hero-title ${serifDisplay} max-w-[58rem] text-[clamp(3.2rem,6.6vw,6.2rem)] leading-[0.92] text-white max-[820px]:max-w-[42rem] max-[560px]:max-w-[28rem] max-[560px]:text-[clamp(2.2rem,9vw,3.5rem)]`}
+            className={`hero-title ${serifDisplay} max-w-[58rem] text-[clamp(3.2rem,4vw,6.2rem)] leading-[0.92] text-white max-[820px]:max-w-[42rem] max-[560px]:max-w-[28rem] max-[560px]:text-[clamp(2.2rem,9vw,3.5rem)]`}
             variants={heroTitleVariants}
           >
             <RevealLine allowDescenders lineProps={{ variants: heroLineVariants }}>
@@ -103,13 +98,7 @@ export function HeroSection() {
             </RevealLine>
           </m.h1>
 
-          <m.p
-            className="hero-intro max-w-[34rem] text-[0.95rem] leading-[1.55] text-[rgba(237,237,237,0.88)]"
-            variants={heroFadeUpVariants}
-          >
-            Professional home staging and interior design services across
-            Greater Vancouver, BC.
-          </m.p>
+        
 
           <m.div
             className="hero-actions flex flex-wrap items-center gap-4"

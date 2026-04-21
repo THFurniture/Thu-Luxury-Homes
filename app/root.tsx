@@ -12,18 +12,7 @@ import type { ReactNode } from "react";
 import type { Route } from "./+types/root";
 import "./app.css";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap",
-  },
-];
+export const links: Route.LinksFunction = () => [];
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -34,7 +23,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className='min-w-80 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.06),transparent_24%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.04),transparent_22%),linear-gradient(180deg,#050505_0%,#101010_100%)] font-["Manrope",ui-sans-serif,system-ui,sans-serif] text-[#f5f5f5] antialiased'>
+      <body className='min-w-80 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.06),transparent_24%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.04),transparent_22%),linear-gradient(180deg,#050505_0%,#101010_100%)] font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[#f5f5f5] antialiased'>
         <LazyMotion features={domAnimation}>{children}</LazyMotion>
         <ScrollRestoration />
         <Scripts />

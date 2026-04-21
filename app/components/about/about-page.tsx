@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { SectionIntro } from "../home/section-intro";
 
 const serifDisplay =
-  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em]';
+  'font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin tracking-[-0.03em]';
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 const processSteps = [
@@ -44,24 +44,34 @@ export function AboutPage() {
 
         <div className="relative z-[1] mx-auto grid min-h-[calc(92svh-7rem)] max-w-[90rem] items-center px-5 py-14 max-[560px]:px-4">
           <m.div
-            className="max-w-[58rem]"
+            className="flex max-w-[58rem] flex-col justify-center gap-5"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 34 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: easeOutExpo }}
           >
-            <p className="text-[0.78rem] font-extrabold uppercase tracking-[0.22em] text-white/72">
-              About The One Home Staging
-            </p>
             <h1
-              className={`${serifDisplay} mt-5 text-[clamp(3.4rem,7vw,7rem)] leading-[0.88] text-white max-[560px]:text-[clamp(2.5rem,14vw,4rem)]`}
+              className={`${serifDisplay} max-w-[58rem] text-[clamp(3.2rem,4vw,6.2rem)] leading-[0.92] text-white max-[820px]:max-w-[42rem] max-[560px]:max-w-[28rem] max-[560px]:text-[clamp(2.2rem,9vw,3.5rem)]`}
             >
-              Vancouver spaces staged for stronger first impressions.
+              We turn spaces into
+              <br />
+              homes people fall in
+              <br />
+              love with.
             </h1>
-            <p className="mt-7 max-w-[36rem] text-[1rem] leading-[1.8] text-white/82">
-              The One Home Staging is a home staging and interior design firm
-              serving homeowners, real estate agents, and developers across the
-              Greater Vancouver Area.
-            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-[1.35rem] py-[0.8rem] text-[0.92rem] font-bold text-black transition duration-200 hover:-translate-y-px"
+                href="/contact"
+              >
+                Get a quote
+              </a>
+              <a
+                className="inline-flex items-center border-b border-current pb-1 text-[0.95rem] font-bold text-white transition duration-200 hover:-translate-y-px"
+                href="/projects"
+              >
+                View our work
+              </a>
+            </div>
           </m.div>
         </div>
       </section>
@@ -75,11 +85,7 @@ export function AboutPage() {
           />
 
           <div className="grid content-start gap-8">
-            <p className="max-w-[42rem] text-[1.02rem] leading-[1.95] text-white/72">
-              We transform empty properties and lived-in homes into emotionally
-              compelling spaces that sharpen listing photography, guide buyer
-              attention, and support faster, higher-value sales.
-            </p>
+            
 
             <div className="grid grid-cols-2 gap-px bg-white/12 max-[700px]:grid-cols-1">
               {[

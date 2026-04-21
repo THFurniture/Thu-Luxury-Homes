@@ -11,8 +11,7 @@ const portfolioProjects = [
     ],
     image: "/projects-imgs/w26_residence/w26-residence-4.avif",
     location: "Vancouver",
-    name: "W26 Residence",
-    type: "Luxury residential staging",
+    name: "W26 Avenue",
   },
   {
     images: [
@@ -22,8 +21,7 @@ const portfolioProjects = [
     ],
     image: "/projects-imgs/crestline_rd_1095/crestline-rd-1095-west-vancouver-3.avif",
     location: "West Vancouver",
-    name: "Crestline Rd 1095",
-    type: "West Vancouver staging",
+    name: "Crestline Rd",
   },
   {
     images: [
@@ -33,8 +31,7 @@ const portfolioProjects = [
     ],
     image: "/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-5.avif",
     location: "West Vancouver",
-    name: "Mathers Ave 2495",
-    type: "West Vancouver Staging",
+    name: "Mathers Ave",
   },
   {
     images: [
@@ -44,8 +41,7 @@ const portfolioProjects = [
     ],
     image: "/projects-imgs/balfour_ave_1263/balfour-ave-1263-vancouver-4.avif",
     location: "Vancouver",
-    name: "Balfour Ave 1263",
-    type: "Family home staging",
+    name: "Balfour Ave",
   },
 ];
 
@@ -58,7 +54,6 @@ export function PortfolioSection() {
     location: project.location,
     number: `${index + 1}`.padStart(2, "0"),
     title: project.name,
-    type: project.type,
   }));
 
   return (

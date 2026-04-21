@@ -22,7 +22,6 @@ export type ImageRevealItem = {
   location: string;
   number: string;
   title: string;
-  type: string;
 };
 
 type ImageRevealProps = {
@@ -151,14 +150,11 @@ function DesktopProjectCard({
 
       <div className="absolute inset-x-0 bottom-0 p-5">
         <m.span
-          className='block max-w-[10rem] font-["Cormorant_Garamond",Georgia,serif] text-[2rem] leading-[0.92] text-[rgba(255,255,255,0.96)]'
+          className='block max-w-[10rem] font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[2rem] leading-[0.92] text-[rgba(255,255,255,0.96)]'
           style={{ x: titleX, y: titleY, willChange: "transform" }}
         >
           {item.title}
         </m.span>
-        <span className="mt-3 block text-[0.82rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.72)]">
-          {item.type}
-        </span>
       </div>
     </button>
   );
@@ -410,12 +406,9 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                     <span className="text-[0.75rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,255,255,0.64)]">
                       {activeItem.number}
                     </span>
-                    <h3 className='mt-4 font-["Cormorant_Garamond",Georgia,serif] text-[clamp(2.6rem,4vw,4.3rem)] leading-[0.92] text-white'>
+                    <h3 className='mt-4 font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[clamp(2.6rem,4vw,4.3rem)] leading-[0.92] text-white'>
                       {activeItem.title}
                     </h3>
-                    <p className="mt-4 text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.72)]">
-                      {activeItem.type}
-                    </p>
                     <p className="mt-2 text-[1rem] leading-[1.7] text-[rgba(255,255,255,0.82)]">
                       {activeItem.location}
                     </p>
@@ -492,7 +485,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                       <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,255,255,0.8)]">
                         {item.number}
                       </span>
-                      <h3 className='mt-2 font-["Cormorant_Garamond",Georgia,serif] text-[2.1rem] leading-[0.95] text-white max-[560px]:text-[1.8rem]'>
+                      <h3 className='mt-2 font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[2.1rem] leading-[0.95] text-white max-[560px]:text-[1.8rem]'>
                         {item.title}
                       </h3>
                     </div>
@@ -514,9 +507,6 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                     transition={{ duration: 0.3, ease: easeOutExpo }}
                   >
                     <div className="space-y-5 border-t border-[rgba(255,255,255,0.12)] p-5 max-[560px]:space-y-4 max-[560px]:p-4">
-                      <p className="text-[0.86rem] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.72)]">
-                        {item.type}
-                      </p>
                       <p className="text-[0.98rem] leading-[1.65] text-[rgba(255,255,255,0.84)]">
                         {item.location}
                       </p>

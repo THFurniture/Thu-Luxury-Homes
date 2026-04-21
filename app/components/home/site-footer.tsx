@@ -45,7 +45,7 @@ export function SiteFooter() {
             <p className="text-[0.74rem] font-extrabold uppercase tracking-[0.24em] text-white/42">
               The One Home Staging
             </p>
-            <h2 className='mt-5 font-["Cormorant_Garamond",Georgia,serif] text-[clamp(3.2rem,7vw,6.6rem)] leading-[0.88] tracking-[-0.04em] text-white'>
+            <h2 className='mt-5 font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[clamp(3.2rem,7vw,6.6rem)] leading-[0.88] tracking-[-0.04em] text-white'>
               Spaces that hold attention before a word is spoken.
             </h2>
             <p className="mt-6 max-w-[32rem] text-[1rem] leading-[1.85] text-white/64">

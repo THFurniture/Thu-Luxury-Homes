@@ -12,7 +12,7 @@ type SectionIntroProps = {
 const eyebrow =
   "m-0 text-[0.78rem] font-extrabold uppercase tracking-[0.22em] text-[rgba(255,255,255,0.62)]";
 const serifDisplay =
-  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
+  'font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin tracking-[-0.03em] text-[#f5f5f5]';
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 export function SectionIntro({

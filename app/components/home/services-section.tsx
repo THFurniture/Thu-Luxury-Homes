@@ -2,7 +2,7 @@ import { m, useReducedMotion } from "motion/react";
 import { SectionIntro } from "./section-intro";
 
 const serifDisplay =
-  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em] text-[#f5f5f5]';
+  'font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin tracking-[-0.03em] text-[#f5f5f5]';
 
 export function ServicesSection() {
   const prefersReducedMotion = useReducedMotion();

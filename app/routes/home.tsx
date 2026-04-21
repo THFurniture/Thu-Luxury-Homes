@@ -8,6 +8,7 @@ import { ServicesSection } from "../components/home/services-section";
 import { SiteFooter } from "../components/home/site-footer";
 import { SiteHeader } from "../components/home/site-header";
 import { useHomeAnimations } from "../components/home/use-home-animations";
+import { YoutubeCtaSection } from "../components/home/youtube-cta-section";
 import { handleContactFormAction } from "../lib/contact-form.server";
 import type { Route } from "./+types/home";
 
@@ -41,6 +42,7 @@ export default function Home() {
         <AboutSection />
         <ServicesSection />
         <PortfolioSection />
+        <YoutubeCtaSection />
         <ContactSection />
       </main>
 

@@ -3,7 +3,7 @@ import { m, useReducedMotion } from "motion/react";
 import { ContactSection } from "../home/contact-section";
 
 const serifDisplay =
-  'font-["Cormorant_Garamond",Georgia,serif] font-medium tracking-[-0.03em]';
+  'font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin tracking-[-0.03em]';
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 const details = [
