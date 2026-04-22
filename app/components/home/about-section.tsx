@@ -21,7 +21,7 @@ export function AboutSection() {
 
       <div className="relative mx-auto max-w-[90rem]">
         <div className="mt-12 grid grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] gap-6 max-[1180px]:gap-5 max-[980px]:grid-cols-1">
-          <div className="relative min-h-[46rem] max-[980px]:min-h-[36rem] max-[640px]:min-h-[31rem]">
+          <div className="relative min-h-[46rem] max-[980px]:order-2 max-[980px]:min-h-[36rem] max-[640px]:min-h-[31rem]">
             <m.div
               className="about-main-visual absolute inset-y-0 left-0 w-full overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.14)]"
               initial={
@@ -51,7 +51,7 @@ export function AboutSection() {
             </m.div>
           </div>
 
-          <div className="grid content-center gap-6 self-center">
+          <div className="grid content-center gap-6 self-center max-[980px]:order-1">
             <h2
               className={`${serifDisplay} pl-8 text-left text-[clamp(2.4rem,5vw,4rem)] leading-[0.96] max-[640px]:pl-6`}
             >

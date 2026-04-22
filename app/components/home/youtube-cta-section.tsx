@@ -3,9 +3,7 @@ import { SiYoutube } from "react-icons/si";
 
 import { SectionIntro } from "./section-intro";
 
-const mutedText = "text-[rgba(229,229,229,0.78)]";
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
-const youtubeVideoUrl = "https://www.youtube.com/watch?v=4aKKJQkO2Pk";
 
 export function YoutubeCtaSection() {
   const prefersReducedMotion = useReducedMotion();
@@ -25,8 +23,6 @@ export function YoutubeCtaSection() {
           className="mx-auto max-w-[46rem] text-center [&_.section-copy]:text-center [&_.section-tag]:text-center"
         />
 
-        
-
         <m.div
           className="relative mx-auto mt-12 max-w-[56rem]"
           initial={
@@ -40,20 +36,13 @@ export function YoutubeCtaSection() {
           <div className="relative border border-white/10 bg-[rgba(12,12,12,0.92)] p-3 shadow-[0_40px_120px_rgba(0,0,0,0.55)] backdrop-blur-[8px] max-[560px]:p-2">
             <div className="relative w-full overflow-hidden bg-black" style={{ aspectRatio: "16 / 9" }}>
               <iframe
-                className="pointer-events-none absolute inset-0 h-full w-full"
+                className="absolute inset-0 h-full w-full"
                 src="https://www.youtube.com/embed/4aKKJQkO2Pk?rel=0&modestbranding=1"
                 title="The One Home Staging on YouTube"
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
-              />
-              <a
-                className="absolute inset-0"
-                href={youtubeVideoUrl}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Open The One Home Staging video on YouTube"
               />
             </div>
           </div>

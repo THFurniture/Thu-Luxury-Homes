@@ -26,6 +26,21 @@ const processSteps = [
   },
 ];
 
+const aboutHighlights = [
+  {
+    title: "Luxury staging",
+    body: "We specialize exclusively in luxury homes, from elegant family residences and custom estates to penthouses, waterfront properties, and architecturally significant listings.",
+  },
+  {
+    title: "Complete visual experience",
+    body: "Each project is curated with furniture, custom art, lighting, florals, accessories, and styling details selected to highlight the architecture and bring every room to life.",
+  },
+  {
+    title: "Hands-on curation",
+    body: "Our team works directly on site, considering scale, natural light, lifestyle, and buyer expectations to create a cohesive, market-ready home with lasting emotional impact.",
+  },
+];
+
 export function AboutPage() {
   const prefersReducedMotion = useReducedMotion();
 
@@ -77,44 +92,54 @@ export function AboutPage() {
       </section>
 
       <section className="relative px-5 py-28 max-[560px]:px-4 max-[560px]:py-20">
-        <div className="mx-auto grid max-w-[90rem] grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-14 max-[980px]:grid-cols-1">
-          <SectionIntro
-            tag="Our approach"
-            title="Every room is composed to help buyers see themselves at home."
-            className="max-w-[42rem] [&_.section-copy]:text-left"
-          />
+        <div className="mx-auto max-w-[90rem]">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-end gap-12 max-[820px]:grid-cols-1 max-[820px]:gap-8">
+            <SectionIntro
+              tag="Our approach"
+              title="Exceptional homes deserve exceptional presentation."
+              className="[&_.section-copy]:text-left"
+            />
 
-          <div className="grid content-start gap-8">
-            
+            <m.p
+              className="ml-auto max-w-[34rem] text-[1.02rem] leading-[1.9] text-white/72 max-[820px]:ml-0"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.75, ease: easeOutExpo }}
+            >
+              At The One Home Staging, we create refined vacant interiors that
+              capture discerning buyers, elevate a property's perceived value,
+              and make a powerful first impression from the moment they walk in.
+            </m.p>
+          </div>
 
-            <div className="grid grid-cols-2 gap-px bg-white/12 max-[700px]:grid-cols-1">
-              {[
-                {
-                  title: "Mission",
-                  body: "We transform spaces into attractive, functional environments that emotionally connect with buyers, increasing property value and speeding up sales.",
-                },
-                {
-                  title: "Vision",
-                  body: "To be a leading home staging company recognized for creativity, quality, and the ability to turn every property into a standout market experience.",
-                },
-              ].map((item) => (
-                <m.article
-                  key={item.title}
-                  className="bg-[#101010] p-7"
-                  initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.75, ease: easeOutExpo }}
+          <div className="mt-20 grid grid-cols-3 gap-px bg-white/12 max-[820px]:mt-14 max-[820px]:grid-cols-1">
+            {aboutHighlights.map((item, index) => (
+              <m.article
+                key={item.title}
+                className="flex flex-col gap-6 bg-[#0b0b0b] p-8 max-[560px]:p-7"
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.75,
+                  ease: easeOutExpo,
+                  delay: index * 0.08,
+                }}
+              >
+                <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-white/42">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h2
+                  className={`${serifDisplay} text-[clamp(1.75rem,2.1vw,2.3rem)] leading-[1]`}
                 >
-                  <h2 className={`${serifDisplay} text-[2.3rem] leading-[0.94]`}>
-                    {item.title}
-                  </h2>
-                  <p className="mt-4 text-[0.96rem] leading-[1.82] text-white/70">
-                    {item.body}
-                  </p>
-                </m.article>
-              ))}
-            </div>
+                  {item.title}
+                </h2>
+                <p className="text-[0.96rem] leading-[1.82] text-white/70">
+                  {item.body}
+                </p>
+              </m.article>
+            ))}
           </div>
         </div>
       </section>

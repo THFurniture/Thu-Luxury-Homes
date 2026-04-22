@@ -4,12 +4,13 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
 } from "react-router";
 import { LazyMotion, domAnimation } from "motion/react";
 import type { ReactNode } from "react";
 
 import type { Route } from "./+types/root";
+import useScrollToTop from "./hooks/useScrollToTop";
+import useSmoothScroll from "./hooks/useSmoothScroll";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [];
@@ -25,7 +26,6 @@ export function Layout({ children }: { children: ReactNode }) {
       </head>
       <body className='min-w-80 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.06),transparent_24%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.04),transparent_22%),linear-gradient(180deg,#050505_0%,#101010_100%)] font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[#f5f5f5] antialiased'>
         <LazyMotion features={domAnimation}>{children}</LazyMotion>
-        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
@@ -33,6 +33,9 @@ export function Layout({ children }: { children: ReactNode }) {
 }
 
 export default function App() {
+  useSmoothScroll();
+  useScrollToTop();
+
   return <Outlet />;
 }
 

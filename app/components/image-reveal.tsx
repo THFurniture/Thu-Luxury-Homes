@@ -8,6 +8,7 @@ import {
   useTransform,
 } from "motion/react";
 import { useRef, useState, type MouseEvent } from "react";
+import { Link } from "react-router";
 
 import { useParallax } from "../lib/use-parallax";
 
@@ -548,6 +549,31 @@ export default function ImageReveal({ items }: ImageRevealProps) {
           );
         })}
       </div>
+
+      <m.div
+        className="relative z-10 mx-auto mt-12 flex max-w-[90rem] items-center justify-between gap-6 px-5 max-[720px]:mt-9 max-[720px]:flex-col max-[720px]:items-start max-[560px]:px-4"
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.7, ease: easeOutExpo }}
+      >
+        <p className="max-w-[28rem] text-[0.98rem] leading-[1.7] text-[rgba(255,255,255,0.68)]">
+          Explore the full archive of staged homes, interiors, and property
+          transformations across Greater Vancouver.
+        </p>
+        <Link
+          to="/projects"
+          className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/18 bg-white px-5 py-3 text-[0.92rem] font-bold text-[#111111] transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,255,255,0.88)]"
+        >
+          View all projects
+          <span
+            aria-hidden="true"
+            className="text-[1rem] leading-none transition duration-200 group-hover:translate-x-1"
+          >
+            -&gt;
+          </span>
+        </Link>
+      </m.div>
     </m.div>
   );
 }

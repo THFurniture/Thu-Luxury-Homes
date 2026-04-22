@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 import { AboutSection } from "../components/home/about-section";
 import { ContactSection } from "../components/home/contact-section";
 import { HeroSection } from "../components/home/hero-section";
@@ -7,7 +5,6 @@ import { PortfolioSection } from "../components/home/portfolio-section";
 import { ServicesSection } from "../components/home/services-section";
 import { SiteFooter } from "../components/home/site-footer";
 import { SiteHeader } from "../components/home/site-header";
-import { useHomeAnimations } from "../components/home/use-home-animations";
 import { YoutubeCtaSection } from "../components/home/youtube-cta-section";
 import { handleContactFormAction } from "../lib/contact-form.server";
 import type { Route } from "./+types/home";
@@ -28,13 +25,8 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Home() {
-  const pageRef = useRef<HTMLDivElement | null>(null);
-  const isSiteReady = true;
-
-  useHomeAnimations(pageRef, isSiteReady);
-
   return (
-    <div ref={pageRef} className="relative overflow-x-clip">
+    <div className="relative overflow-x-clip">
       <SiteHeader />
 
       <main id="top">
