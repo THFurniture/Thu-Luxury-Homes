@@ -11,9 +11,16 @@ import type { ReactNode } from "react";
 import type { Route } from "./+types/root";
 import useScrollToTop from "./hooks/useScrollToTop";
 import useSmoothScroll from "./hooks/useSmoothScroll";
+import { getRequestOrigin } from "./lib/seo";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [];
+
+export function loader({ request }: Route.LoaderArgs) {
+  return {
+    origin: getRequestOrigin(request),
+  };
+}
 
 export function Layout({ children }: { children: ReactNode }) {
   return (

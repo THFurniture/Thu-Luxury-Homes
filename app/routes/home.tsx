@@ -7,17 +7,19 @@ import { SiteFooter } from "../components/home/site-footer";
 import { SiteHeader } from "../components/home/site-header";
 import { YoutubeCtaSection } from "../components/home/youtube-cta-section";
 import { handleContactFormAction } from "../lib/contact-form.server";
+import { buildPageMeta, getMetaOrigin } from "../lib/seo";
 import type { Route } from "./+types/home";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Thu Luxury Homes | Vancouver Home Staging" },
-    {
-      name: "description",
-      content:
-        "Thu Luxury Homes provides premium home staging and interior design services across Greater Vancouver, BC.",
-    },
-  ];
+export function meta({ matches, location }: Route.MetaArgs) {
+  return buildPageMeta({
+    title: "Thu Luxury Homes | Vancouver Home Staging",
+    description:
+      "Thu Luxury Homes provides premium home staging and interior design services across Greater Vancouver, BC.",
+    origin: getMetaOrigin(matches),
+    pathname: location.pathname,
+    imagePath: "/og/w26-residence-og.jpg",
+    imageAlt: "Luxury staged home interior by Thu Luxury Homes",
+  });
 }
 
 export async function action({ request }: Route.ActionArgs) {
