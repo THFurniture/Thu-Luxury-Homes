@@ -1,59 +1,28 @@
+import { projects } from "../../data/projects";
 import ImageReveal from "../image-reveal";
 import { SectionIntro } from "./section-intro";
 
-const portfolioProjects = [
-  {
-    images: [
-      "/projects-imgs/w26_residence/w26-residence-2.avif",
-      "/projects-imgs/w26_residence/w26-residence-4.avif",
-      "/projects-imgs/w26_residence/w26-residence-6.avif",
-      "/projects-imgs/w26_residence/w26-residence-8.avif",
-    ],
-    image: "/projects-imgs/w26_residence/w26-residence-4.avif",
-    location: "Vancouver",
-    name: "W26 Avenue",
-  },
-  {
-    images: [
-      "/projects-imgs/crestline_rd_1095/crestline-rd-1095-west-vancouver-1.avif",
-      "/projects-imgs/crestline_rd_1095/crestline-rd-1095-west-vancouver-3.avif",
-      "/projects-imgs/crestline_rd_1095/crestline-rd-1095-west-vancouver-5.avif",
-    ],
-    image: "/projects-imgs/crestline_rd_1095/crestline-rd-1095-west-vancouver-3.avif",
-    location: "West Vancouver",
-    name: "Crestline Rd",
-  },
-  {
-    images: [
-      "/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-2.avif",
-      "/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-5.avif",
-      "/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-7.avif",
-    ],
-    image: "/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-5.avif",
-    location: "West Vancouver",
-    name: "Mathers Ave",
-  },
-  {
-    images: [
-      "/projects-imgs/balfour_ave_1263/balfour-ave-1263-vancouver-2.avif",
-      "/projects-imgs/balfour_ave_1263/balfour-ave-1263-vancouver-4.avif",
-      "/projects-imgs/balfour_ave_1263/balfour-ave-1263-vancouver-7.avif",
-    ],
-    image: "/projects-imgs/balfour_ave_1263/balfour-ave-1263-vancouver-4.avif",
-    location: "Vancouver",
-    name: "Balfour Ave",
-  },
+const portfolioSlugs = [
+  "cambie-st-885",
+  "claysmith-rd-8128",
+  "w-georgia-st-1128",
+  "robson-st-1408",
 ];
+
+const portfolioProjects = portfolioSlugs
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is (typeof projects)[number] => Boolean(project));
 
 export function PortfolioSection() {
   const portfolioSurface = "bg-[#080808]";
 
   const revealItems = portfolioProjects.map((project, index) => ({
     images: project.images,
-    image: project.image,
+    image: project.coverImage,
     location: project.location,
     number: `${index + 1}`.padStart(2, "0"),
     title: project.name,
+    href: `/projects?project=${project.slug}`,
   }));
 
   return (

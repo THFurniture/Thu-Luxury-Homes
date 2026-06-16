@@ -38,7 +38,7 @@ export function YoutubeCtaSection() {
               <iframe
                 className="absolute inset-0 h-full w-full"
                 src="https://www.youtube.com/embed/4aKKJQkO2Pk?rel=0&modestbranding=1"
-                title="The One Home Staging on YouTube"
+                title="Thu Luxury Homes on YouTube"
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"

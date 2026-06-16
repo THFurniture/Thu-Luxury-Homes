@@ -107,7 +107,7 @@ export function AboutPage() {
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 0.75, ease: easeOutExpo }}
             >
-              At The One Home Staging, we create refined vacant interiors that
+              At Thu Luxury Homes, we create refined vacant interiors that
               capture discerning buyers, elevate a property's perceived value,
               and make a powerful first impression from the moment they walk in.
             </m.p>

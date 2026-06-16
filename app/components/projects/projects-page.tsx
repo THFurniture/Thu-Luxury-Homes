@@ -1,5 +1,6 @@
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router";
 
 import type { Project } from "../../data/projects";
 
@@ -27,8 +28,25 @@ function preloadProjectImages(project: Project) {
 
 export function ProjectsPage({ projects }: ProjectsPageProps) {
   const prefersReducedMotion = useReducedMotion();
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialSlug = searchParams.get("project");
+  const [activeSlug, setActiveSlug] = useState<string | null>(
+    initialSlug && projects.some((project) => project.slug === initialSlug)
+      ? initialSlug
+      : null,
+  );
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  useEffect(() => {
+    const slugParam = searchParams.get("project");
+    if (slugParam && slugParam !== activeSlug) {
+      const exists = projects.some((project) => project.slug === slugParam);
+      if (exists) {
+        setActiveSlug(slugParam);
+        setActiveImageIndex(0);
+      }
+    }
+  }, [searchParams, projects, activeSlug]);
 
   const activeProject =
     projects.find((project) => project.slug === activeSlug) ?? null;
@@ -43,6 +61,11 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
   const closeProject = () => {
     setActiveSlug(null);
     setActiveImageIndex(0);
+    if (searchParams.has("project")) {
+      const next = new URLSearchParams(searchParams);
+      next.delete("project");
+      setSearchParams(next, { replace: true });
+    }
   };
 
   const showPreviousImage = () => {
@@ -208,7 +231,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.24 }}
           >
-            <div className="grid h-full min-h-0 grid-rows-[auto_minmax(0,1fr)_auto] max-[700px]:grid-rows-[auto_minmax(0,1fr)]">
+            <div className="grid h-full min-h-0 grid-rows-[auto_minmax(0,1fr)_auto]">
               <div className="z-[2] flex items-center justify-between gap-4 border-b border-white/10 px-5 py-4 max-[700px]:bg-black/32 max-[700px]:px-3 max-[700px]:pt-[calc(0.625rem+env(safe-area-inset-top))] max-[700px]:pb-2.5 max-[560px]:gap-2">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-white/44 max-[560px]:text-[0.58rem] max-[560px]:tracking-[0.16em]">
@@ -238,7 +261,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
                 <AnimatePresence mode="wait" initial={false}>
                   <m.div
                     key={activeImage}
-                    className="absolute inset-0 grid place-items-center p-6 max-[900px]:p-4 max-[560px]:p-2"
+                    className="absolute inset-0 flex min-h-0 items-center justify-center p-6 max-[900px]:p-4 max-[560px]:p-2"
                     initial={prefersReducedMotion ? false : { opacity: 0, scale: 1.01 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.995 }}
@@ -253,7 +276,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
                   </m.div>
                 </AnimatePresence>
 
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center p-5 max-[700px]:items-end max-[700px]:pb-[calc(7.25rem+env(safe-area-inset-bottom))] max-[560px]:p-3 max-[560px]:pb-[calc(7rem+env(safe-area-inset-bottom))]">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center p-5 max-[560px]:p-3">
                   <button
                     type="button"
                     onClick={showPreviousImage}
@@ -266,7 +289,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
                   </button>
                 </div>
 
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center p-5 max-[700px]:items-end max-[700px]:pb-[calc(7.25rem+env(safe-area-inset-bottom))] max-[560px]:p-3 max-[560px]:pb-[calc(7rem+env(safe-area-inset-bottom))]">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center p-5 max-[560px]:p-3">
                   <button
                     type="button"
                     onClick={showNextImage}
@@ -279,46 +302,20 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
                   </button>
                 </div>
 
-                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-white/14 bg-black/50 px-4 py-2 text-[0.74rem] font-extrabold uppercase tracking-[0.2em] text-white/82 backdrop-blur-[10px] max-[700px]:bottom-[calc(7.55rem+env(safe-area-inset-bottom))] max-[560px]:px-3 max-[560px]:py-1.5 max-[560px]:text-[0.62rem] max-[560px]:tracking-[0.16em]">
+                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-white/14 bg-black/50 px-4 py-2 text-[0.74rem] font-extrabold uppercase tracking-[0.2em] text-white/82 backdrop-blur-[10px] max-[560px]:bottom-3 max-[560px]:px-3 max-[560px]:py-1.5 max-[560px]:text-[0.62rem] max-[560px]:tracking-[0.16em]">
                   {String(activeImageIndex + 1).padStart(2, "0")} /{" "}
                   {String(activeProject.images.length).padStart(2, "0")}
                 </div>
-
-                <div className="hidden border-t border-white/10 bg-black/48 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur-[14px] max-[700px]:absolute max-[700px]:inset-x-0 max-[700px]:bottom-0 max-[700px]:block">
-                  <div className="flex snap-x gap-2 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
-                    {activeProject.images.map((image, index) => (
-                      <button
-                        key={image}
-                        type="button"
-                        onClick={() => setActiveImageIndex(index)}
-                        className={`relative h-16 w-24 shrink-0 snap-start overflow-hidden border transition duration-200 ${
-                          activeImageIndex === index
-                            ? "border-white"
-                            : "border-white/14 opacity-60"
-                        }`}
-                        aria-label={`Show image ${index + 1}`}
-                      >
-                        <img
-                          src={image}
-                          alt=""
-                          className="h-full w-full object-cover"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
 
-              <div className="border-t border-white/10 px-5 py-4 max-[700px]:hidden">
-                <div className="flex gap-3 overflow-x-auto pb-1 max-[560px]:gap-2">
+              <div className="border-t border-white/10 bg-black/48 px-5 py-4 backdrop-blur-[14px] max-[700px]:px-3 max-[700px]:pt-3 max-[700px]:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
+                <div className="flex snap-x gap-3 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] max-[560px]:gap-2">
                   {activeProject.images.map((image, index) => (
                     <button
                       key={image}
                       type="button"
                       onClick={() => setActiveImageIndex(index)}
-                      className={`relative h-20 w-28 shrink-0 overflow-hidden border transition duration-200 max-[560px]:h-14 max-[560px]:w-20 ${
+                      className={`relative h-20 w-28 shrink-0 snap-start overflow-hidden border transition duration-200 max-[700px]:h-16 max-[700px]:w-24 max-[560px]:h-14 max-[560px]:w-20 ${
                         activeImageIndex === index
                           ? "border-white"
                           : "border-white/14 opacity-60 hover:opacity-100"

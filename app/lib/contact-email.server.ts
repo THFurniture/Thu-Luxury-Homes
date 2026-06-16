@@ -42,7 +42,7 @@ export function renderContactInquiryEmail({
             New inquiry
           </p>
           <h1 style="margin:0;font-size:28px;line-height:1.2;font-weight:600;">
-            The One Home Staging
+            Thu Luxury Homes
           </h1>
         </div>
         <div style="padding:28px;">

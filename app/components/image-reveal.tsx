@@ -23,6 +23,7 @@ export type ImageRevealItem = {
   location: string;
   number: string;
   title: string;
+  href?: string;
 };
 
 type ImageRevealProps = {
@@ -420,17 +421,38 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-[0.9rem] leading-[1.6] text-[rgba(255,255,255,0.7)]">
-                      Click back to return to the project lineup.
-                    </span>
+                  <div className="flex items-center justify-between gap-4 max-[560px]:flex-col max-[560px]:items-stretch">
                     <button
                       type="button"
                       onClick={(event) => void handleBackClick(event)}
                       className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-full border border-[rgba(255,255,255,0.24)] px-5 py-3 text-[0.9rem] font-bold text-white transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,255,255,0.12)]"
                     >
-                      Back to projects
+                      Close
                     </button>
+                    {activeItem.href ? (
+                      <Link
+                        to={activeItem.href}
+                        className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[0.9rem] font-bold text-[#0a0a0a] transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,255,255,0.92)]"
+                      >
+                        View project
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          aria-hidden="true"
+                          className="transition duration-200 group-hover:translate-x-1"
+                        >
+                          <path
+                            d="M3 8h10M9 4l4 4-4 4"
+                            stroke="currentColor"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </Link>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -541,6 +563,31 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                           </button>
                         </div>
                       </div>
+
+                      {item.href ? (
+                        <Link
+                          to={item.href}
+                          className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-[0.9rem] font-bold text-[#0a0a0a] transition duration-200 hover:-translate-y-px hover:bg-[rgba(255,255,255,0.92)]"
+                        >
+                          View project
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            aria-hidden="true"
+                            className="transition duration-200 group-hover:translate-x-1"
+                          >
+                            <path
+                              d="M3 8h10M9 4l4 4-4 4"
+                              stroke="currentColor"
+                              strokeWidth="1.6"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </Link>
+                      ) : null}
                     </div>
                   </m.div>
                 ) : null}

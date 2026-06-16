@@ -49,13 +49,13 @@ export function SiteHeader() {
         <Link
           to="/"
           className="inline-flex items-center"
-          aria-label="The One Home Staging"
+          aria-label="Thu Luxury Homes"
           onClick={() => setIsMenuOpen(false)}
         >
           <img
-            src="/theonehomestaging_logo.png"
-            alt="The One Home Staging"
-            className="h-[3.25rem] w-[10.5rem] px-2 object-contain brightness-0 invert max-[560px]:h-[2.6rem] max-[560px]:w-[8.4rem]"
+            src="/thuluxuryhomes_logo.png"
+            alt="Thu Luxury Homes"
+            className="h-[5rem] w-[10.5rem] px-2 object-contain max-[560px]:h-[2.6rem] max-[560px]:w-[8.4rem]"
           />
         </Link>
 
@@ -146,12 +146,12 @@ export function SiteHeader() {
                 <Link
                   to="/"
                   className="inline-flex items-center"
-                  aria-label="The One Home Staging"
+                  aria-label="Thu Luxury Homes"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <img
-                    src="/theonehomestaging_logo.png"
-                    alt="The One Home Staging"
+                    src="/thuluxuryhomes_logo.png"
+                    alt="Thu Luxury Homes"
                     className="h-[2.85rem] w-[9.2rem] object-contain brightness-0 invert"
                   />
                 </Link>

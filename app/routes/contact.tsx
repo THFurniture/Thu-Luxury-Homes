@@ -5,11 +5,11 @@ import type { Route } from "./+types/contact";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Contact | The One Home Staging" },
+    { title: "Contact | Thu Luxury Homes" },
     {
       name: "description",
       content:
-        "Contact The One Home Staging for home staging and interior design inquiries across Greater Vancouver.",
+        "Contact Thu Luxury Homes for home staging and interior design inquiries across Greater Vancouver.",
     },
   ];
 }

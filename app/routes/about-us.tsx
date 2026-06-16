@@ -4,11 +4,11 @@ import type { Route } from "./+types/about-us";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "About Us | The One Home Staging" },
+    { title: "About Us | Thu Luxury Homes" },
     {
       name: "description",
       content:
-        "Learn about The One Home Staging, a Vancouver home staging and interior design firm serving Greater Vancouver.",
+        "Learn about Thu Luxury Homes, a Vancouver home staging and interior design firm serving Greater Vancouver.",
     },
   ];
 }

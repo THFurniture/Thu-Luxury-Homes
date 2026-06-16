@@ -11,11 +11,11 @@ import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "The One Home Staging | Vancouver Home Staging" },
+    { title: "Thu Luxury Homes | Vancouver Home Staging" },
     {
       name: "description",
       content:
-        "The One Home Staging provides premium home staging and interior design services across Greater Vancouver, BC.",
+        "Thu Luxury Homes provides premium home staging and interior design services across Greater Vancouver, BC.",
     },
   ];
 }

@@ -35,7 +35,7 @@ export default function LayoutPreloader({
     new Set([
       ...stagedImages.map((image) => image.src),
       ...assets,
-      "/theonehomestaging_logo.png",
+      "/thuluxuryhomes_logo.png",
     ]),
   );
   const assetSourceKey = assetSources.join("|");
@@ -281,8 +281,8 @@ export default function LayoutPreloader({
             <span className="line-mask block overflow-hidden">
               <span className="line-inner block translate-y-[110%]">
                 <img
-                  src="/theonehomestaging_logo.png"
-                  alt="The One Home Staging"
+                  src="/thuluxuryhomes_logo.png"
+                  alt="Thu Luxury Homes"
                   className="h-auto w-full p-12"
                   loading="eager"
                   draggable={false}
