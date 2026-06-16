@@ -1,5 +1,5 @@
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
@@ -7,6 +7,8 @@ const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 export function SiteHeader() {
   const prefersReducedMotion = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileHeaderHidden, setIsMobileHeaderHidden] = useState(false);
+  const lastScrollY = useRef(0);
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about-us", label: "About" },
@@ -38,13 +40,57 @@ export function SiteHeader() {
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mobileQuery = window.matchMedia("(max-width: 820px)");
+
+    const handleScroll = () => {
+      if (!mobileQuery.matches || isMenuOpen) {
+        setIsMobileHeaderHidden(false);
+        lastScrollY.current = window.scrollY;
+        return;
+      }
+
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY.current;
+
+      if (currentScrollY <= 24) {
+        setIsMobileHeaderHidden(false);
+      } else if (Math.abs(scrollDelta) >= 8) {
+        setIsMobileHeaderHidden(scrollDelta > 0 && currentScrollY > 96);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    const handleViewportChange = () => {
+      if (!mobileQuery.matches) {
+        setIsMobileHeaderHidden(false);
+      }
+
+      lastScrollY.current = window.scrollY;
+    };
+
+    lastScrollY.current = window.scrollY;
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    mobileQuery.addEventListener("change", handleViewportChange);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      mobileQuery.removeEventListener("change", handleViewportChange);
+    };
+  }, [isMenuOpen]);
+
   return (
     <>
       <m.header
         className="site-header fixed inset-x-0 top-0 z-40 flex items-center justify-between gap-4 border-b border-white/12 bg-[rgba(10,10,10,0.82)] px-5 py-4 shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-3xl max-[820px]:p-4"
         initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: easeOutExpo }}
+        animate={{ opacity: 1, y: isMobileHeaderHidden ? "-110%" : 0 }}
+        transition={{ duration: isMobileHeaderHidden ? 0.32 : 0.8, ease: easeOutExpo }}
       >
         <Link
           to="/"
@@ -55,7 +101,7 @@ export function SiteHeader() {
           <img
             src="/thuluxuryhomes_logo.png"
             alt="Thu Luxury Homes"
-            className="h-[5rem] w-[10.5rem] px-2 object-contain max-[560px]:h-[2.6rem] max-[560px]:w-[8.4rem]"
+            className="h-[5rem] w-[10.5rem] px-2 object-contain max-[560px]:h-[5rem] max-[560px]:w-[8.4rem]"
           />
         </Link>
 
@@ -152,7 +198,7 @@ export function SiteHeader() {
                   <img
                     src="/thuluxuryhomes_logo.png"
                     alt="Thu Luxury Homes"
-                    className="h-[2.85rem] w-[9.2rem] object-contain brightness-0 invert"
+                    className="h-[5rem] w-[9.2rem] object-contain"
                   />
                 </Link>
 
