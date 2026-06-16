@@ -3,10 +3,10 @@ import ImageReveal from "../image-reveal";
 import { SectionIntro } from "./section-intro";
 
 const portfolioSlugs = [
-  "cambie-st-885",
-  "claysmith-rd-8128",
   "w-georgia-st-1128",
-  "robson-st-1408",
+  "sandhurst-pl-1416",
+  "burkehill-rd-4129",
+  "cambie-st-885",
 ];
 
 const portfolioProjects = portfolioSlugs
