@@ -18,6 +18,8 @@ type BuildMetaArgs = {
   imageAlt: string;
 };
 
+const ogImageVersion = "20260616";
+
 export function getRequestOrigin(request: Request) {
   const requestUrl = new URL(request.url);
   const forwardedHost = request.headers.get("x-forwarded-host") ?? request.headers.get("host");
@@ -42,6 +44,25 @@ export function absoluteUrl(origin: string, path: string) {
   return new URL(path, origin).toString();
 }
 
+function canonicalUrl(origin: string, pathname: string) {
+  const url = new URL(pathname || "/", origin);
+
+  if (url.pathname === "/") {
+    return url.origin;
+  }
+
+  url.pathname = url.pathname.replace(/\/+$/, "");
+
+  return url.toString();
+}
+
+function ogImageUrl(origin: string, imagePath: string) {
+  const url = new URL(imagePath, origin);
+  url.searchParams.set("v", ogImageVersion);
+
+  return url.toString();
+}
+
 export function buildPageMeta({
   title,
   description,
@@ -50,18 +71,18 @@ export function buildPageMeta({
   imagePath,
   imageAlt,
 }: BuildMetaArgs): MetaDescriptor[] {
-  const canonicalUrl = absoluteUrl(origin, pathname);
-  const imageUrl = absoluteUrl(origin, imagePath);
+  const pageUrl = canonicalUrl(origin, pathname);
+  const imageUrl = ogImageUrl(origin, imagePath);
 
   return [
     { title },
     { name: "description", content: description },
-    { tagName: "link", rel: "canonical", href: canonicalUrl },
+    { tagName: "link", rel: "canonical", href: pageUrl },
     { property: "og:type", content: "website" },
     { property: "og:site_name", content: "Thu Luxury Homes" },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
-    { property: "og:url", content: canonicalUrl },
+    { property: "og:url", content: pageUrl },
     { property: "og:image", content: imageUrl },
     { property: "og:image:secure_url", content: imageUrl },
     { property: "og:image:type", content: "image/jpeg" },
