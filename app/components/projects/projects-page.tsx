@@ -231,8 +231,8 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.24 }}
           >
-            <div className="grid h-full min-h-0 grid-rows-[auto_minmax(0,1fr)_auto]">
-              <div className="z-[2] flex items-center justify-between gap-4 border-b border-white/10 px-5 py-4 max-[700px]:bg-black/32 max-[700px]:px-3 max-[700px]:pt-[calc(0.625rem+env(safe-area-inset-top))] max-[700px]:pb-2.5 max-[560px]:gap-2">
+            <div className="grid h-full min-h-0 w-full min-w-0 grid-rows-[auto_minmax(0,1fr)_auto]">
+              <div className="z-[2] flex min-w-0 items-center justify-between gap-4 border-b border-white/10 px-5 py-4 max-[700px]:bg-black/32 max-[700px]:px-3 max-[700px]:pt-[calc(0.625rem+env(safe-area-inset-top))] max-[700px]:pb-2.5 max-[560px]:gap-2">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-white/44 max-[560px]:text-[0.58rem] max-[560px]:tracking-[0.16em]">
                     {activeProject.location}
@@ -254,7 +254,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
               </div>
 
               <div
-                className="relative min-h-0 overflow-hidden touch-pan-y"
+                className="relative min-h-0 min-w-0 overflow-hidden touch-pan-y"
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
@@ -308,7 +308,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
                 </div>
               </div>
 
-              <div className="border-t border-white/10 bg-black/48 px-5 py-4 backdrop-blur-[14px] max-[700px]:px-3 max-[700px]:pt-3 max-[700px]:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
+              <div className="min-w-0 overflow-hidden border-t border-white/10 bg-black/48 px-5 py-4 backdrop-blur-[14px] max-[700px]:px-3 max-[700px]:pt-3 max-[700px]:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
                 <div className="flex snap-x gap-3 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] max-[560px]:gap-2">
                   {activeProject.images.map((image, index) => (
                     <button
