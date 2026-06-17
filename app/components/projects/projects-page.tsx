@@ -202,8 +202,8 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
                   loading="eager"
                   decoding="async"
                 />
-                <div className="absolute inset-0 bg-black/68 opacity-0 transition duration-500 group-hover:opacity-100" />
-                <div className="absolute inset-0 flex items-center justify-center p-5 text-center opacity-0 transition duration-500 group-hover:opacity-100 max-[560px]:p-4">
+                <div className="absolute inset-0 bg-black/20 opacity-0 transition duration-500 group-hover:opacity-100 max-[820px]:opacity-100 max-[820px]:bg-gradient-to-t max-[820px]:from-black/35 max-[820px]:via-black/5 max-[820px]:to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center p-5 text-center opacity-0 transition duration-500 group-hover:opacity-100 max-[820px]:opacity-100 max-[820px]:items-end max-[820px]:p-4">
                   <div className="max-w-[18rem]">
                     <span className="text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-white/66">
                       {project.location}
