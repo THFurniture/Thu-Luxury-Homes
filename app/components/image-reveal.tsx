@@ -17,6 +17,10 @@ const easeInStrong = [0.4, 0, 1, 1] as const;
 const easeCurtain = [0.65, 0, 0.35, 1] as const;
 const easeClose = [0.7, 0, 0.84, 0] as const;
 
+function stripStreetNumber(name: string) {
+  return name.replace(/\s+\d+\s*$/, "").trim();
+}
+
 export type ImageRevealItem = {
   images: string[];
   image: string;
@@ -155,7 +159,7 @@ function DesktopProjectCard({
           className='block max-w-[10rem] font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[2rem] leading-[0.92] text-[rgba(255,255,255,0.96)]'
           style={{ x: titleX, y: titleY, willChange: "transform" }}
         >
-          {item.title}
+          {stripStreetNumber(item.title)}
         </m.span>
       </div>
     </button>
@@ -368,7 +372,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                       custom={imageDirection}
                       className="absolute inset-0 h-full w-full object-cover"
                       src={activeImage}
-                      alt={activeItem.title}
+                      alt={stripStreetNumber(activeItem.title)}
                       variants={imageSwapVariants}
                       initial={prefersReducedMotion ? false : "initial"}
                       animate="animate"
@@ -409,7 +413,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                       {activeItem.number}
                     </span>
                     <h3 className='mt-4 font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[clamp(2.6rem,4vw,4.3rem)] leading-[0.92] text-white'>
-                      {activeItem.title}
+                      {stripStreetNumber(activeItem.title)}
                     </h3>
                     <p className="mt-2 text-[1rem] leading-[1.7] text-[rgba(255,255,255,0.82)]">
                       {activeItem.location}
@@ -490,7 +494,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                       key={mobileImage}
                       className="absolute inset-0 h-full w-full object-cover"
                       src={mobileImage}
-                      alt={item.title}
+                      alt={stripStreetNumber(item.title)}
                       custom={imageDirection}
                       variants={imageSwapVariants}
                       initial={
@@ -509,7 +513,7 @@ export default function ImageReveal({ items }: ImageRevealProps) {
                         {item.number}
                       </span>
                       <h3 className='mt-2 font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[2.1rem] leading-[0.95] text-white max-[560px]:text-[1.8rem]'>
-                        {item.title}
+                        {stripStreetNumber(item.title)}
                       </h3>
                     </div>
                     <span className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.14)] px-3 text-[1rem] text-white backdrop-blur-[10px]">

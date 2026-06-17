@@ -12,6 +12,10 @@ const serifDisplay =
   'font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin tracking-[-0.03em]';
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
+function stripStreetNumber(name: string) {
+  return name.replace(/\s+\d+\s*$/, "").trim();
+}
+
 function clampImageIndex(project: Project, imageIndex: number) {
   if (project.images.length === 0) return 0;
   return (imageIndex + project.images.length) % project.images.length;
@@ -197,19 +201,19 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
               >
                 <img
                   src={project.coverImage}
-                  alt={`${project.name} staged interior`}
+                  alt={`${stripStreetNumber(project.name)} staged interior`}
                   className="absolute inset-0 h-full w-full object-cover"
                   loading="eager"
                   decoding="async"
                 />
-                <div className="absolute inset-0 bg-black/20 opacity-0 transition duration-500 group-hover:opacity-100 max-[820px]:opacity-100 max-[820px]:bg-gradient-to-t max-[820px]:from-black/35 max-[820px]:via-black/5 max-[820px]:to-transparent" />
+                <div className="absolute inset-0 bg-black/68 opacity-0 transition duration-500 group-hover:opacity-100 max-[820px]:opacity-100 max-[820px]:bg-transparent max-[820px]:bg-gradient-to-t max-[820px]:from-black/35 max-[820px]:via-black/5 max-[820px]:to-transparent" />
                 <div className="absolute inset-0 flex items-center justify-center p-5 text-center opacity-0 transition duration-500 group-hover:opacity-100 max-[820px]:opacity-100 max-[820px]:items-end max-[820px]:p-4">
                   <div className="max-w-[18rem]">
                     <span className="text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-white/66">
                       {project.location}
                     </span>
                     <h3 className={`${serifDisplay} mt-2 text-[clamp(1.6rem,2.4vw,2.4rem)] leading-[0.95] text-white`}>
-                      {project.name}
+                      {stripStreetNumber(project.name)}
                     </h3>
                   </div>
                 </div>
@@ -225,7 +229,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
             className="fixed inset-0 z-50 h-[100dvh] overflow-hidden bg-[rgba(0,0,0,0.92)] text-white backdrop-blur-xl"
             role="dialog"
             aria-modal="true"
-            aria-label={`${activeProject.name} project gallery`}
+            aria-label={`${stripStreetNumber(activeProject.name)} project gallery`}
             initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -238,7 +242,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
                     {activeProject.location}
                   </p>
                   <h2 className={`${serifDisplay} mt-1 truncate text-[clamp(1.1rem,3vw,3.3rem)] leading-[0.95] max-[560px]:mt-0`}>
-                    {activeProject.name}
+                    {stripStreetNumber(activeProject.name)}
                   </h2>
                 </div>
                 <button
@@ -269,7 +273,7 @@ export function ProjectsPage({ projects }: ProjectsPageProps) {
                   >
                     <img
                       src={activeImage}
-                      alt={`${activeProject.name} image ${activeImageIndex + 1}`}
+                      alt={`${stripStreetNumber(activeProject.name)} image ${activeImageIndex + 1}`}
                       className="max-h-full max-w-full object-contain"
                       draggable={false}
                     />
