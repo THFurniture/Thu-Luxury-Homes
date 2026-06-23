@@ -35,7 +35,7 @@ export function ServicesSection() {
             >
               <img
                 className="absolute inset-0 h-full w-full rounded-none object-cover"
-                src="/projects-imgs/w26_residence/w26-residence-4.avif"
+                src="/projects-imgs/Not%20shown/w26_residence/w26-residence-4.avif"
                 alt="Luxuriously staged living room with designer furniture and warm lighting"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(0,0,0,0.66)_100%)]" />
@@ -89,7 +89,7 @@ export function ServicesSection() {
             >
               <img
                 className="absolute inset-0 h-full w-full rounded-none object-cover"
-                src="/projects-imgs/mathers_ave_2495/mathers-ave-2495-west-vancouver-5.avif"
+                src="/projects-imgs/Not%20shown/mathers_ave_2495/mathers-ave-2495-west-vancouver-5.avif"
                 alt="Beautifully refreshed home with layered styling"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(0,0,0,0.66)_100%)]" />

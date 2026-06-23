@@ -8,7 +8,7 @@ export function ProjectsHero() {
   return (
     <section className="relative min-h-[94svh] overflow-hidden pt-[7rem] max-[820px]:pt-[6.4rem]">
       <img
-        src="/projects-imgs/w26_residence/w26-residence-4.avif"
+        src="/projects-imgs/Not%20shown/w26_residence/w26-residence-4.avif"
         alt="Featured staged Vancouver residence"
         className="absolute inset-0 h-full w-full object-cover"
         loading="eager"

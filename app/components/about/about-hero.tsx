@@ -8,7 +8,7 @@ export function AboutHero() {
   return (
     <section className="relative min-h-[92svh] overflow-hidden pt-[7rem] max-[820px]:pt-[6.4rem]">
       <img
-        src="/projects-imgs/w_georgia_st_1128/w-georgia-st-1128-4903-vancouver-6.avif"
+        src="/projects-imgs/Shown/w_georgia_st_1128/w-georgia-st-1128-4903-vancouver-6.avif"
         alt="Professionally staged Vancouver residence with refined living space"
         className="absolute inset-0 h-full w-full object-cover"
         loading="eager"

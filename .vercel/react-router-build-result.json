@@ -12,8 +12,7 @@
     "routeIdToServerBundleId": {
       "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/about-us": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "routes/projects": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "routes/contact": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+      "routes/projects": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
     },
     "routes": {
       "root": {
@@ -48,22 +47,13 @@
         "config": {
           "runtime": "nodejs"
         }
-      },
-      "routes/contact": {
-        "id": "routes/contact",
-        "parentId": "root",
-        "file": "app/routes/contact.tsx",
-        "path": "contact",
-        "config": {
-          "runtime": "nodejs"
-        }
       }
     }
   },
   "reactRouterConfig": {
-    "appDirectory": "C:/Users/dario/Desktop/WebDev/THU WATSON/THE ONE HOMESTAGING/theonehomestaging/app",
+    "appDirectory": "C:/Users/Darío Defossé/Desktop/WebDev/THU WATSON/THU LUXURY HOMES/thuluxuryhomes/app",
     "basename": "/",
-    "buildDirectory": "C:/Users/dario/Desktop/WebDev/THU WATSON/THE ONE HOMESTAGING/theonehomestaging/build",
+    "buildDirectory": "C:/Users/Darío Defossé/Desktop/WebDev/THU WATSON/THU LUXURY HOMES/thuluxuryhomes/build",
     "future": {
       "unstable_optimizeDeps": false,
       "unstable_passThroughRequests": false,
@@ -97,12 +87,6 @@
         "parentId": "root",
         "file": "routes/projects.tsx",
         "path": "projects"
-      },
-      "routes/contact": {
-        "id": "routes/contact",
-        "parentId": "root",
-        "file": "routes/contact.tsx",
-        "path": "contact"
       }
     },
     "routeDiscovery": {
@@ -130,10 +114,6 @@
           {
             "file": "routes/projects.tsx",
             "path": "projects"
-          },
-          {
-            "file": "routes/contact.tsx",
-            "path": "contact"
           }
         ]
       }

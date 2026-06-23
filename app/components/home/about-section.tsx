@@ -43,7 +43,7 @@ export function AboutSection() {
               >
                 <img
                   className="h-full w-full scale-[1.08] object-cover"
-                  src="/projects-imgs/w_georgia_st_1128/w-georgia-st-1128-4903-vancouver-6.avif"
+                  src="/projects-imgs/Shown/w_georgia_st_1128/w-georgia-st-1128-4903-vancouver-6.avif"
                   alt="Professionally staged Vancouver living space with layered neutral furniture"
                 />
               </m.div>
