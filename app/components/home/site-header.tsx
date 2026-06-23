@@ -13,7 +13,7 @@ export function SiteHeader() {
     { href: "/", label: "Home" },
     { href: "/about-us", label: "About" },
     { href: "/projects", label: "Projects" },
-    { href: "/contact", label: "Contact" },
+    { href: "/#contact", label: "Contact" },
   ];
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/14 bg-white px-[1.35rem] py-[0.8rem] text-[0.92rem] font-bold text-[#111111] transition duration-200 hover:-translate-y-px max-[820px]:hidden"
-            to="/contact"
+            to="/#contact"
           >
             Get a quote
           </Link>
@@ -262,7 +262,7 @@ export function SiteHeader() {
                   Home staging and interior styling across Greater Vancouver.
                 </p>
                 <Link
-                  to="/contact"
+                  to="/#contact"
                   onClick={() => setIsMenuOpen(false)}
                   className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-white px-5 py-3 text-[0.92rem] font-bold text-[#111111] transition duration-200 active:scale-[0.99]"
                 >

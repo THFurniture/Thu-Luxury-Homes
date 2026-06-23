@@ -156,7 +156,7 @@ function DesktopProjectCard({
 
       <div className="absolute inset-x-0 bottom-0 p-5">
         <m.span
-          className='block max-w-[10rem] font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[2rem] leading-[0.92] text-[rgba(255,255,255,0.96)]'
+          className='block w-full font-["Roboto",ui-sans-serif,system-ui,sans-serif] font-thin text-[2rem] leading-[0.92] text-[rgba(255,255,255,0.96)]'
           style={{ x: titleX, y: titleY, willChange: "transform" }}
         >
           {stripStreetNumber(item.title)}

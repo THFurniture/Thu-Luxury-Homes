@@ -55,7 +55,7 @@ export function AboutSection() {
             <h2
               className={`${serifDisplay} pl-8 text-left text-[clamp(2.4rem,5vw,4rem)] leading-[0.96] max-[640px]:pl-6`}
             >
-              Vancouver's premier home staging company
+              Excellence is never optional.
             </h2>
             <div className="grid content-start gap-6 border border-white/10 bg-[rgba(18,18,18,0.78)] p-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] backdrop-blur-[10px] max-[640px]:p-6">
               <m.div
@@ -69,7 +69,7 @@ export function AboutSection() {
                 <p
                   className={`m-0 max-w-[39rem] text-left text-[1.02rem] leading-[1.9] ${mutedText}`}
                 >
-                  We deliver professional home staging and interior design services across Greater Vancouver. Our approach transforms empty properties and lived-in homes into emotionally compelling spaces that help buyers envision their future and drive faster, higher-value sales.
+                  Every project is approached with meticulous attention to detail, ensuring each space is presented at its absolute best.
                 </p>
               </m.div>
             </div>

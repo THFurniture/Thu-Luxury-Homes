@@ -1,11 +1,5 @@
-import { AboutSection } from "../components/home/about-section";
-import { ContactSection } from "../components/home/contact-section";
-import { HeroSection } from "../components/home/hero-section";
-import { PortfolioSection } from "../components/home/portfolio-section";
-import { ServicesSection } from "../components/home/services-section";
-import { SiteFooter } from "../components/home/site-footer";
-import { SiteHeader } from "../components/home/site-header";
-import { YoutubeCtaSection } from "../components/home/youtube-cta-section";
+import { HomePage } from "../components/home/home-page";
+import { SitePage } from "../components/site/site-page";
 import { handleContactFormAction } from "../lib/contact-form.server";
 import { buildPageMeta, getMetaOrigin } from "../lib/seo";
 import type { Route } from "./+types/home";
@@ -28,19 +22,8 @@ export async function action({ request }: Route.ActionArgs) {
 
 export default function Home() {
   return (
-    <div className="relative overflow-x-clip">
-      <SiteHeader />
-
-      <main id="top">
-        <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <PortfolioSection />
-        <YoutubeCtaSection />
-        <ContactSection />
-      </main>
-
-      <SiteFooter />
-    </div>
+    <SitePage>
+      <HomePage />
+    </SitePage>
   );
 }

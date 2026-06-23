@@ -88,28 +88,25 @@ export function HeroSection() {
             variants={heroTitleVariants}
           >
             <RevealLine allowDescenders lineProps={{ variants: heroLineVariants }}>
-              We turn spaces into
+              Explore luxury staging
             </RevealLine>
             <RevealLine allowDescenders lineProps={{ variants: heroLineVariants }}>
-              homes people fall in
-            </RevealLine>
-            <RevealLine allowDescenders lineProps={{ variants: heroLineVariants }}>
-              love with.
+              and design transformations.
             </RevealLine>
           </m.h1>
 
-        
+          <m.p
+            className="m-0 max-w-[40rem] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.7] text-white/75"
+            variants={heroFadeUpVariants}
+          >
+            A curated collection created to elevate every property and inspire
+            exceptional results.
+          </m.p>
 
           <m.div
             className="hero-actions flex flex-wrap items-center gap-4"
             variants={heroFadeUpVariants}
           >
-            <a
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-[1.35rem] py-[0.8rem] text-[0.92rem] font-bold text-black transition duration-200 hover:-translate-y-px"
-              href="/contact"
-            >
-              Get a quote
-            </a>
             <a
               className="inline-flex items-center border-b border-current pb-1 text-[0.95rem] font-bold text-white transition duration-200 hover:-translate-y-px"
               href="/projects"

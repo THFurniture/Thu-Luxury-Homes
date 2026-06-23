@@ -6,7 +6,7 @@ const footerLinks = [
   { href: "/", label: "Home" },
   { href: "/about-us", label: "About" },
   { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 const contactLinks = [
@@ -48,8 +48,8 @@ export function SiteFooter() {
       />
 
       <div className="relative mx-auto max-w-[90rem] px-6 py-20 max-[560px]:px-5 max-[560px]:py-14">
-        <div className="grid grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] items-end gap-14 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-          <div>
+        <div className="flex justify-center text-center">
+          <div className="max-w-[72rem]">
             <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.28em] text-white/40">
               Thu Luxury Homes
             </p>
@@ -59,35 +59,6 @@ export function SiteFooter() {
               Spaces that hold attention <br className="max-[560px]:hidden" />
               <span className="text-white/55">before a word is spoken.</span>
             </h2>
-          </div>
-
-          <div className="flex flex-col items-start gap-5 max-[900px]:items-start">
-            <p className="max-w-[26rem] text-[0.98rem] leading-[1.8] text-white/64">
-              Premium home staging and interior design across Greater Vancouver,
-              shaped to create stronger first impressions.
-            </p>
-            <Link
-              to="/contact"
-              className="group inline-flex min-h-12 items-center gap-3 rounded-full bg-white px-6 py-3 text-[0.85rem] font-bold uppercase tracking-[0.16em] text-[#0a0a0a] transition duration-300 hover:-translate-y-px hover:bg-white/92"
-            >
-              Start a project
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
-                className="transition duration-300 group-hover:translate-x-1"
-              >
-                <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
           </div>
         </div>
 
