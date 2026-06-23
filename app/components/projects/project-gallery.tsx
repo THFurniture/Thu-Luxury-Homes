@@ -216,7 +216,7 @@ function ProjectGallery({ project, onClose }: ProjectGalleryProps) {
         </div>
 
         <div className="min-w-0 overflow-hidden border-t border-white/10 bg-black/48 px-5 py-4 backdrop-blur-[14px] max-[700px]:px-3 max-[700px]:pt-3 max-[700px]:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
-          <div className="flex snap-x gap-3 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] max-[560px]:gap-2">
+          <div className="flex snap-x gap-3 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto max-[560px]:gap-2">
             {project.images.map((image, index) => (
               <button
                 key={image}

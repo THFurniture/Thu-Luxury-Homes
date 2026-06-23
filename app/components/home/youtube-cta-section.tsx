@@ -19,7 +19,7 @@ export function YoutubeCtaSection() {
       <div className="relative mx-auto max-w-[72rem]">
         <SectionIntro
           tag="On YouTube"
-          title="Step inside our recent transformations"
+          title="A showcase of remarkable transformations"
           className="mx-auto max-w-[46rem] text-center [&_.section-copy]:text-center [&_.section-tag]:text-center"
         />
 

@@ -50,7 +50,7 @@ export const projects: Project[] = [
   }),
   defineProject({
     slug: "w-georgia-st-1128",
-    name: "W Georgia St 1128",
+    name: "West Georgia St 1128",
     location: "Vancouver",
     type: "Luxury condo staging",
     folder: "w_georgia_st_1128",
@@ -110,7 +110,7 @@ export const projects: Project[] = [
   }),
   defineProject({
     slug: "sandhurst-pl-1416",
-    name: "Sandhurst Pl 1416",
+    name: "Sandhurst Place 1416",
     location: "West Vancouver",
     type: "Luxury residential staging",
     folder: "sandhurst_pl_1416",
@@ -190,7 +190,7 @@ export const projects: Project[] = [
   }),
   defineProject({
     slug: "burkehill-rd-4129",
-    name: "Burkehill Rd 4129",
+    name: "Burkehill Road 4129",
     location: "West Vancouver",
     type: "West Vancouver staging",
     folder: "burkehill-rd-4129",
@@ -200,7 +200,7 @@ export const projects: Project[] = [
   }),
   defineProject({
     slug: "cambie-st-885",
-    name: "Cambie St 885",
+    name: "Cambie Street 885",
     location: "Vancouver",
     type: "Condo staging",
     folder: "cambie_st_885",
