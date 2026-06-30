@@ -13,7 +13,6 @@ export function SiteHeader() {
     { href: "/", label: "Home" },
     { href: "/about-us", label: "About" },
     { href: "/projects", label: "Projects" },
-    { href: "/#contact", label: "Contact" },
   ];
 
   useEffect(() => {
@@ -125,13 +124,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link
-            className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/14 bg-white px-[1.35rem] py-[0.8rem] text-[0.92rem] font-bold text-[#111111] transition duration-200 hover:-translate-y-px max-[820px]:hidden"
-            to="/#contact"
-          >
-            Get a quote
-          </Link>
-
           <button
             type="button"
             className="hidden h-12 w-12 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white transition duration-200 hover:bg-white/16 max-[820px]:inline-flex"
@@ -261,13 +253,6 @@ export function SiteHeader() {
                 <p className="max-w-[17rem] text-[0.92rem] leading-[1.65] text-white/58">
                   Home staging and interior styling across Greater Vancouver.
                 </p>
-                <Link
-                  to="/#contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-white px-5 py-3 text-[0.92rem] font-bold text-[#111111] transition duration-200 active:scale-[0.99]"
-                >
-                  Get a quote
-                </Link>
               </div>
             </m.aside>
           </m.div>

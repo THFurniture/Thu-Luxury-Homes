@@ -36,7 +36,7 @@ export function AboutHero() {
           <div className="flex flex-wrap items-center gap-4">
             <a
               className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-[1.35rem] py-[0.8rem] text-[0.92rem] font-bold text-black transition duration-200 hover:-translate-y-px"
-              href="/#contact"
+              href="mailto:theonehomestaging@gmail.com"
             >
               Get a quote
             </a>
